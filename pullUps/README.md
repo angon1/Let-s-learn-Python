@@ -10,3 +10,13 @@ Needed features:
 3. Planning trainings in google calender. Updating the event after succesfuly finished training
 4. Notifications when there is the time for the training.
 5. Progression of the training
+
+Co potrzebuję:
+
+1. ćwiczenie
+2. Serie - ile serii i jakiego ćwiczenia
+3. Blok ćwiczeń
+    - ile ćwiczeń w bloku
+    - Ile serii danego ćwiczenia w bloku
+    - Ile razy blok
+    
