@@ -19,4 +19,3 @@ Co potrzebuję:
     - ile ćwiczeń w bloku
     - Ile serii danego ćwiczenia w bloku
     - Ile razy blok
-    

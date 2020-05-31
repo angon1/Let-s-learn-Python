@@ -4,6 +4,9 @@ class Excercise:
         self.name = name
         self.description = description
 
+    def printuj():
+        print("%s" % self.name )
+
     def setName(name):
         self.name = name
 
@@ -16,9 +19,7 @@ class Excercise:
     def getDescription(self):
         return self.description
 
-class SingleSet:
-
-    
+class SingleSet: 
     def __init__(self, repsNumber, breakTime):
         self.repsNumber = repsNumber
         self.breakTime = breakTime
