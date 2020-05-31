@@ -19,3 +19,29 @@ Co potrzebuję:
     - ile ćwiczeń w bloku
     - Ile serii danego ćwiczenia w bloku
     - Ile razy blok
+
+
+### 31.05
+1. Co zrobione:
+
+- Dodane funkcje do tworzenia treningu, dodawania cwiczen
+- Dodana funkcja do printowania treningu
+- Test manualny
+
+2. Napotkane problemy:
+  - input - string to int
+File "c:/python/Let-s-learn-Python/pullUps/training.py", line 24, in printMe
+print("%s x %d" % (self.name, self.reps))
+input z klawiatury w konsoli - znaleźć jak tu zmusić pythona, żeby liczby traktował jak liczby
+
+Znalazłem rozwiązanie 
+reps = int(input(""))
+
+
+3. Kolejne kroki: 
+- Zapis treningu do pliku (raport)
+- Stworzenie bazy danych
+- Funkcje do zapisu w bazie
+- funkcje do odczytu z bazy
+- Obsługa wielu treningów
+- Zapis treningów w kalendarzu googla
