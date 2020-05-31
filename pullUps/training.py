@@ -1,38 +1,39 @@
 class Excercise:
 
-    def __init__(self, name, description):
+    def __init__(self, name):
         self.name = name
-        self.description = description
 
     def printuj():
-        print("%s" % self.name )
+        print("%s \n %s" % (self.name))
 
     def setName(name):
         self.name = name
 
-    def setDescription(description):
-        self.description = description
-
     def getName(self):
         return self.name
 
-    def getDescription(self):
-        return self.description
+class ExcerciseSet(Excercise):
+    def __init__(self, name, reps):
+        self.name = name
+        self.reps = reps
+    def getReps(self):
+        return self.reps
 
-class SingleSet: 
+#break time - przerwa w serii. Jelsi jest wiecej cwiczen niz jedno, to przerwa jest po wykonaniu powtorzen kazdego z cwiczen
+class ExcerciseBlock:
     def __init__(self, repsNumber, breakTime):
         self.repsNumber = repsNumber
         self.breakTime = breakTime
-        excercise = []
+        self.excercise = []
 
-    def addExcercise(self):
-        print("")
+    def addExcercise(self, name, reps):
+        self.excercie.append(ExcerciseSet(name, reps))
+   
+        
 
 
-class ExcerciseBlock:
-    blockName = ""
-    numOfExcercises = 0
-    blockReps = 0
+
+
 
 class Training:
     name = "Training name"
