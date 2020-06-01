@@ -39,7 +39,9 @@ reps = int(input(""))
 
 
 3. Kolejne kroki: 
-- Zapis treningu do pliku (raport)
+- zainstalowac i przepiac sie na postgres
+- poczytac jak django wykorzystuje templaty
+- Zapis treningu do pliku (raport) - min
 - Stworzenie bazy danych
 - Funkcje do zapisu w bazie
 - funkcje do odczytu z bazy

@@ -3,10 +3,10 @@ class Excercise:
     def __init__(self, name):
         self.name = name
 
-    def printuj():
+    def printuj(self):
         print("%s \n %s" % (self.name))
 
-    def setName(name):
+    def setName(self, name):
         self.name = name
 
     def getName(self):

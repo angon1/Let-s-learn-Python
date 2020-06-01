@@ -1,0 +1,27 @@
+.container 
+{
+    /* height:400px ; */
+    width: 600px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.box
+{
+    /* height: 30px ; */
+    width: 180px;
+    background-color: coral;
+    margin: 15px;
+}
+
+.active
+{
+    /* height: 60px ; */
+    background-color: blue;
+    border:2px solid white;
+    padding: 5px;
+    
+
+}
