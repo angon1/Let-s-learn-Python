@@ -38,12 +38,18 @@ Znalazłem rozwiązanie
 reps = int(input(""))
 
 
-3. Kolejne kroki: 
-- zainstalowac i przepiac sie na postgres
-- poczytac jak django wykorzystuje templaty
+3. Kolejne kroki: 02.06
+- zainstalowac i przepiac sie na postgres  +
+- poczytac jak django wykorzystuje templaty 
 - Zapis treningu do pliku (raport) - min
-- Stworzenie bazy danych
-- Funkcje do zapisu w bazie
+- Stworzenie bazy danych  +
+- Funkcje do zapisu w bazie 
 - funkcje do odczytu z bazy
-- Obsługa wielu treningów
-- Zapis treningów w kalendarzu googla
+- Obsługa wielu treningów +
+- Zapis treningów w kalendarzu googla +
+
+3.1 Kolejne kroki: 11.06:
+- Zrobić aplikację z tutoriala: 
+https://tutorial.djangogirls.org/pl/
+- logowanie czasu w togglu
+
