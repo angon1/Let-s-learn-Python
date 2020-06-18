@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <!-- <link href="..\..\styles\style.css" rel="stylesheet"> -->
+        <title>Nakurwiaj ten trening</title>
+    </head>
+    <body>
+        <div class="container">
+
+            {% block content %}
+                <h2>New post</h2>
+                <form method="POST" class="post-form">{% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="save btn btn-default">Save</button>
+                </form>
+            {% endblock %}
+
+        </div>
+    </body>
+</html>

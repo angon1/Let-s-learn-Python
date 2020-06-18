@@ -71,14 +71,16 @@ class Training:
             print("Blok %d:" % i)
             self.blocks[0].printMe()
 
+    def printMeVoid():
+        return("Twój trening")
 
 
 
-trening = Training()
+# trening = Training()
 
 
-trening.addBlock()
-trening.printMe()
+# trening.addBlock()
+# trening.printMe()
 
 
     
