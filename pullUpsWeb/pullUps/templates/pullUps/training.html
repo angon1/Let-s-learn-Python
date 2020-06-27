@@ -26,8 +26,11 @@
             <div class="box active">
                 <p>No już już. trzeba nakurwiać</p>
             </div>
-            {{bla}}<br>
             {{showAll}}<br>
+
+            {% for excercise in showAll %}
+            {{ excercise }}<a href="{% url 'excercise_show' pk=excercise.pk %}">show</a> <a href="{% url 'excercise_edit' pk=excercise.pk %}">edit</a> <br>
+            {% endfor %}<br>
 
             <a href="{% url 'training_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus" > Tu wprowadz cwiczenie </span></a>
         </div>

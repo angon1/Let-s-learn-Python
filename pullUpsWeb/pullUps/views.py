@@ -7,7 +7,8 @@ from .forms import InputTraining
 
 def training(request):
     exampleVar = Training.printMeVoid()
-    return render(request, 'pullUps/training.html', {"bla": exampleVar, "showAll": Excercise.objects.all()})
+    excerciseList = Excercise.objects.all()
+    return render(request, 'pullUps/training.html', {"bla": exampleVar, "showAll": excerciseList})
 
 def training_new(request):
     if request.method == "POST":
@@ -20,3 +21,12 @@ def training_new(request):
     else:
         form = InputTraining()
     return render(request, 'pullUps/training_new.html', {'form': form})
+
+def excercise_show(request, pk):
+    excercise = Excercise.objects.get(pk=pk)
+    return render(request, 'pullUps/excercise.html', {"excercise_show": excercise})
+
+def excercise_edit(request):
+    exampleVar = Training.printMeVoid()
+    excerciseList = Excercise.objects.all()
+    return render(request, 'pullUps/training.html', {"bla": exampleVar, "showAll": excerciseList})
