@@ -4,9 +4,11 @@ from .forms import InputTraining, InputExcercise
 
 # Create your views here.
 
-def training(request):
-    excerciseList = Excercise.objects.all()
-    return render(request, 'pullUps/training.html', {"showAll": excerciseList})
+
+
+# def training(request):
+#     excerciseList = Excercise.objects.all()
+#     return render(request, 'pullUps/training.html', {"showAll": excerciseList})
 
 # def training_new(request):
 #     if request.method == "POST":
@@ -19,6 +21,10 @@ def training(request):
 #     else:
 #         form = InputTraining()
 #     return render(request, 'pullUps/training_new.html', {'form': form})
+
+def excercise_list(request):
+    excerciseList = Excercise.objects.all()
+    return render(request, 'excercises/list.html', {"showAll": excerciseList})
 
 def excercise_show(request, pk):
     excercise = Excercise.objects.get(pk=pk)
@@ -42,7 +48,7 @@ def excercise_create(request):
     if form.is_valid():
         excercise = form.save(commit=False)
         excercise.save()
-        return redirect('training')
+        return redirect('excercise_list')
     else:
         return render(request, 'excercises/new.html', {'form': form})
 
@@ -53,6 +59,6 @@ def excercise_update(request):
     if form.is_valid():
         excercise = form.save(commit=False)
         excercise.save()
-        return redirect('training')
+        return redirect('excercise_list')
     else:
         return render(request, 'excercises/edit.html', {'form': form})

@@ -1,21 +1,5 @@
-<html>
-    <head>
-        <title>Nakurwiaj ten trening</title>
-    </head>
-    <body>
-        <div class="container">
- 
-            <div class="box active" >
-
-                <p>No już już. trzeba nakurwiać</p>
-            
-                {{excercise_show}}<br>
-
-
-                
-
-                <a href="{% url 'excercise_edit' pk=excercise.pk %}" class="top-menu"><span class="glyphicon glyphicon-plus" > Tu wprowadz cwiczenie </span></a>
-            </div>
-        </div>
-    </body>
-</html>
+{% extends '../layout.html' %}
+{% block content %}
+    {{excercise_show}}<br>
+    <a href="{% url 'excercise_edit' pk=excercise.pk %}" class="top-menu"><span class="glyphicon glyphicon-plus" > Tu wprowadz cwiczenie </span></a>
+{% endblock %}

@@ -13,15 +13,18 @@ class ExcerciseSet(models.Model):
     reps = models.IntegerField()
     # usedExcercise = models.ManyToManyField(Excercise)
     usedExcercise = models.ForeignKey(Excercise, on_delete=models.CASCADE, null=True)
-
+    # ExcerciseSet -> powinien być obiekt składający się z tych danych:
+    # {excercise, repsy, przerwa}
     def getReps(self):
-        return self.reps
+        return self.reps    #przenieść do blocks
 
 class ExcerciseBlock(models.Model):
-    repsNumber = models.IntegerField()
+    repsNumber = models.IntegerField()      #przenieść do treningu
     breakTime = models.IntegerField()
     excercise = models.ManyToManyField(ExcerciseSet)
     block = []
+    # ExcerciseBlock to powinien być obiekt składający się z: przerwy po bloku i listy ExcerciseSet
+    #   [ExcerciseSet, ExcerciseSet, ExcerciseSet     ]
     name = models.TextField()
 
 #TU MUSZĘ OGARNĄĆ JAK TO ZROBIĆ
@@ -48,6 +51,10 @@ class ExcerciseBlock(models.Model):
 class Training(models.Model):
     blocks = models.ManyToManyField(ExcerciseBlock)
     name = models.TextField()
+    #Training to powinien być obiekt składający się z:
+    # Listy bloków z powtórzeniami (jak blok ID jest na liście x razy, to liczymy że "powtarza się 3 razy")
+    #
+
     # def addBlock(self):
         # self.repsNumber = int(input("Podaj liczbę powtorzeń bloku cwiczen: \n"))
         # self.breakTime = int(input("Podaj czas przerwy między powtórzeniami bloku: \n"))
