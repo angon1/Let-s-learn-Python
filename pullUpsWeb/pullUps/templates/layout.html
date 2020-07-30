@@ -1,12 +1,28 @@
 <html>
     <head>
-        <!-- <link href="..\..\styles\style.css" rel="stylesheet"> -->
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">   
         <title>Nakurwiaj ten trening</title>
     </head>
     <body>
+        <header>
+            <div class= logo> 
+                <a href="{% url 'root_path' %}" >Logo</a>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{% url 'excercise_list' %}" class="top-menu"><span > Lista ćwiczeń </span></a><br>
+                    </li>
+                </ul>
+            </nav>
+        </header>
         <div class="container">
             {% block content %}
             {% endblock %}
-        </div>
+            </div>
+            <footer>
+                <a href="https://mistrzowie.org/uimages/services/mistrzowie/i18n/pl_PL/201912/1575833743_by_Nepen.jpg?1575833743" class="top-menu"><span > Stopka </span></a><br>
+            </footer>
     </body>
 </html>
