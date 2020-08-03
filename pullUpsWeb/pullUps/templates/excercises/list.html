@@ -2,7 +2,15 @@
 {% block content %}
 
     {% for excercise in showAll %}
-    {{ excercise }}<a href="{% url 'excercise_show' pk=excercise.pk %}">show</a> <a href="{% url 'excercise_edit' pk=excercise.pk %}">edit</a> <br>
+    {{ excercise }} <br> 
+        <div class= "linksList"> 
+            <div class = "link"> 
+                <a href="{% url 'excercise_show' pk=excercise.pk %}">show </a> 
+            </div>
+            <div class = "link"> 
+                <a href="{% url 'excercise_edit' pk=excercise.pk %}">edit</a> 
+            </div>
+        </div>
     {% endfor %}<br>
     <a href="{% url 'excercise_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus" > nowy </span></a><br>
 

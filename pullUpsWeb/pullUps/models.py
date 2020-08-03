@@ -9,23 +9,34 @@ class Excercise(models.Model):
         return self.name
 
 
-class ExcerciseSet(models.Model):
-    reps = models.IntegerField()
-    # usedExcercise = models.ManyToManyField(Excercise)
-    usedExcercise = models.ForeignKey(Excercise, on_delete=models.CASCADE, null=True)
     # ExcerciseSet -> powinien być obiekt składający się z tych danych:
     # {excercise, repsy, przerwa}
-    def getReps(self):
-        return self.reps    #przenieść do blocks
+class ExcerciseSet(models.Model):
+    repsSet = models.IntegerField()
+    usedExcercise = models.ForeignKey(Excercise, on_delete=models.CASCADE, null=True)
+    breakTimeAfterSet = models.IntegerField()
 
+    def getReps(self):
+        return self.repsSet    #przenieść do blocks
+
+    def __str__(self):
+        return 'Used excercise:  {} reps:  {} break after set: {}'.format(self.usedExcercise, self.repsSet, self.breakTimeAfterSet)
+
+
+# ExcerciseBlock to powinien być obiekt składający się z: przerwy po bloku i listy ExcerciseSet
+#   [ExcerciseSet, ExcerciseSet, ExcerciseSet     ]
+#    repsNumber = models.IntegerField()      #przenieść do treningu
 class ExcerciseBlock(models.Model):
-    repsNumber = models.IntegerField()      #przenieść do treningu
-    breakTime = models.IntegerField()
-    excercise = models.ManyToManyField(ExcerciseSet)
+    breakTimeAfterBlock = models.IntegerField()
+    ExcerciseSet = models.ManyToManyField(ExcerciseSet)
     block = []
-    # ExcerciseBlock to powinien być obiekt składający się z: przerwy po bloku i listy ExcerciseSet
-    #   [ExcerciseSet, ExcerciseSet, ExcerciseSet     ]
-    name = models.TextField()
+
+    def __str__(self):
+        return block
+
+    # Czy ja dobrze rozumiem, że w django w modelach nie daje funkcji na add?
+    # def blockAdd(self, breakTimeAfterBlock, ExcerciseSet)
+    #     block.append([ExcerciseSet(repsSet, usedExcercise(name), breakTimeAfterSet), breakTimeAfterBlock])
 
 #TU MUSZĘ OGARNĄĆ JAK TO ZROBIĆ
     # def addExcercise(self, name, reps):
@@ -51,22 +62,7 @@ class ExcerciseBlock(models.Model):
 class Training(models.Model):
     blocks = models.ManyToManyField(ExcerciseBlock)
     name = models.TextField()
-    #Training to powinien być obiekt składający się z:
-    # Listy bloków z powtórzeniami (jak blok ID jest na liście x razy, to liczymy że "powtarza się 3 razy")
-    #
-
-    # def addBlock(self):
-        # self.repsNumber = int(input("Podaj liczbę powtorzeń bloku cwiczen: \n"))
-        # self.breakTime = int(input("Podaj czas przerwy między powtórzeniami bloku: \n"))
-        # self.blocks.append(ExcerciseBlock(self.repsNumber, self.breakTime))
-        # while 0 == 0:
-        #     self.name = input("Wprowadź nazwe cwiczenia. Jesli nie chcesz dodawac cwiczen do bloku, wpisz 0: \n")
-        #     if "0" == self.name:
-        #         break
-        #     self.reps = int(input("Wprowadź liczbę powtórzeń: "))
-        #     self.blocks[-1].addExcercise(self.name, self.reps)
-        # print("Blok dodany")
 
     def __str__(self):
-        return self.name
+        return 'Training: {} Excercises {}'.format(self.name, blocks)
 
