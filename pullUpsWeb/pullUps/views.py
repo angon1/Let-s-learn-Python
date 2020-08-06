@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from pullUps.models import Excercise
-from .forms import InputTraining, InputExcercise
+from .forms import InputTraining, InputExcerciseForm
 
 # Create your views here.
 
@@ -24,27 +24,25 @@ from .forms import InputTraining, InputExcercise
 
 def excercise_list(request):
     excerciseList = Excercise.objects.all()
-    return render(request, 'excercises/list.html', {"showAll": excerciseList})
+    return render(request, 'excercises/index.html', {"showAll": excerciseList})
 
 def excercise_show(request, pk):
     excercise = Excercise.objects.get(pk=pk)
     return render(request, 'excercises/show.html', {"excercise_show": excercise})
 
-def excercise_edit(request, pk):
-    form = InputExcercise()
-    excercise = Excercise.objects.get(pk=pk)
-    return render(request, 'excercises/edit.html', {'form': form, 'excercise': excercise})
+
 
     # excerciseList = Excercise.objects.all()
     # return render(request, 'pullUps/show.html', {"bla": exampleVar, "showAll": excerciseList})
 
     
 def excercise_new(request):
-    form = InputExcercise()
+    form = InputExcerciseForm()
     return render(request, 'excercises/new.html', {'form': form})
 
 def excercise_create(request):
-    form  = InputExcercise(request.POST)
+    form  = InputExcerciseForm(request.POST)
+    print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, requ))
     if form.is_valid():
         excercise = form.save(commit=False)
         excercise.save()
@@ -54,11 +52,18 @@ def excercise_create(request):
 
     # return render(request, 'excercises/new.html', {'form': form})
 
-def excercise_update(request):
-    form  = InputExcercise(request.POST)
+
+def excercise_edit(request, pk):
+    excercise = get_object_or_404(Excercise, pk=pk)
+    form  = InputExcerciseForm(instance=excercise)
+    return render(request, 'excercises/edit.html', {'form': form, 'excercise': excercise})
+
+def excercise_update(request, pk):
+    oldExcercise = get_object_or_404(Excercise, pk=pk)
+    form  = InputExcerciseForm(request.POST, instance=oldExcercise)
     if form.is_valid():
-        excercise = form.save(commit=False)
-        excercise.save()
+        newExcercise = form.save(commit=False)
+        newExcercise.save()
         return redirect('excercise_list')
     else:
-        return render(request, 'excercises/edit.html', {'form': form})
+        return render(request, 'excercises/edit.html', {'form': form, 'excercise': oldExcercise})
