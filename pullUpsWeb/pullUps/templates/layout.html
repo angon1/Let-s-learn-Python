@@ -7,22 +7,23 @@
     <body>
         <header>
             <div class= logo> 
-                <a href="{% url 'root_path' %}" >Logo</a>
+                <a href="{% url 'main_page' %}" >Logo</a>
             </div>
             <nav>
                 <ul>
                     <li>
-                        <a href="{% url 'excercise_list' %}" class="top-menu"><span > Lista ćwiczeń </span></a><br>
+                        <a href="{% url 'excercise_list' %}" class="top-menu"><span > Baza ćwiczeń </span></a><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'trainings_list' %}">Baza Treningów </a>
                     </li>
                 </ul>
             </nav>
         </header>
         <div class="container">
-            <div class="excercise_list">
                 {% block content %}
                 {% endblock %}
-            </div>
-            </div>
+        </div>
             <footer>
                 <a href="https://mistrzowie.org/uimages/services/mistrzowie/i18n/pl_PL/201912/1575833743_by_Nepen.jpg?1575833743" class="top-menu"><span > Stopka </span></a><br>
             </footer>

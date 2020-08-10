@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<br>
+<br>
+Witaj w mojej aplikacji do komponowania i śledzenia treningów.<br>
+<br>
+Mam nadzieję, że będziesz bawił się dobrze.
+<br>
+Rozpocznij juz teraz!
+<br>
+
+<div class="linksList">
+    <div class="link">
+        <a href="{% url 'excercise_list' %}">Baza ćwiczeń </a>
+    </div>
+    <div class="link">
+        <a href="{% url 'trainings_create' %}">Nowy Trening </a>
+    </div>
+    <div class="link">
+        <a href="{% url 'trainings_list' %}">Przeglądaj treningi </a>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

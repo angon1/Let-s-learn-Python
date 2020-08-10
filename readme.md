@@ -84,3 +84,20 @@ https://tutorial.djangogirls.org/pl/
 - logowanie czasu w togglu
 
 
+### 10.08
+1. Co zrobilem
+- Przeniesienie listy do pliku index
+- Zacząłem tworzyć templatki dla "Training" i podpinać pod to model. Do tego wszystkie widoki etc. Jest to cholernie czasochłonne i męczące. Nie ma dla tego jakiejś automatyzacji? xD
+
+
+2. Napotkane problemy, wątpliwości etc
+- Importowanie (przy formularzach na to wpadłem) - importuje pojedyncze formularze z pliku forms - czy da się gdzies ustawić "from plik import all"? - do sprawdzenia next time. 
+
+
+
+3. Co zrobić nastepnym razem - oraz kiedy?
+- Wrzucenie obecnej apki w neta. Plan minimum
+- Dokończyć templatki dla treningu i excercise set. Podpiąć odpowiednie formularze. 
+- Nauczyć się jak dobrze zrobić formularz z wieloma polami (np. excercise set: form dla cwiczenia, przerwy i powtórzeń i zapis 1 przyciskiem)
+- Stworzyć formularze dla setów, bloków i treningów
+- Kiedy: Po Spotkaniu produktywności we wtorek 11.08

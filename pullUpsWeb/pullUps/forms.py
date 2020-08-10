@@ -1,10 +1,10 @@
 from django import forms
-from .models import Excercise
+from .models import Excercise, Training
 
-class InputTraining(forms.ModelForm):
+class InputTrainingForm(forms.ModelForm):
 
     class Meta:
-        model = Excercise
+        model = Training
         fields = ('name',)
 
 class InputExcerciseForm(forms.ModelForm):

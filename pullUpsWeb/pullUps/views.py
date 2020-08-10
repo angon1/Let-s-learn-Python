@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from pullUps.models import Excercise
-from .forms import InputTraining, InputExcerciseForm
+from pullUps.models import Excercise, Training
+from .forms import InputTrainingForm, InputExcerciseForm
 
 # Create your views here.
 
@@ -22,6 +22,9 @@ from .forms import InputTraining, InputExcerciseForm
 #         form = InputTraining()
 #     return render(request, 'pullUps/training_new.html', {'form': form})
 
+def main_page(request):
+    return render(request, 'main.html')
+
 def excercise_list(request):
     excerciseList = Excercise.objects.all()
     return render(request, 'excercises/index.html', {"showAll": excerciseList})
@@ -42,7 +45,7 @@ def excercise_new(request):
 
 def excercise_create(request):
     form  = InputExcerciseForm(request.POST)
-    print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, requ))
+    print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
     if form.is_valid():
         excercise = form.save(commit=False)
         excercise.save()
@@ -67,3 +70,26 @@ def excercise_update(request, pk):
         return redirect('excercise_list')
     else:
         return render(request, 'excercises/edit.html', {'form': form, 'excercise': oldExcercise})
+
+
+
+
+
+def trainings_list(request):
+    trainingList = Training.objects.all()
+    return render(request, 'trainings/index.html', {"showAll": trainingList})
+
+
+def trainings_new(request):
+    form = InputTrainingForm()
+    return render(request, 'trainings/new.html', {'form': form})
+
+def trainings_create(request):
+    form  = InputTrainingForm(request.POST)
+    print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
+    if form.is_valid():
+        training = form.save(commit=False)
+        training.save()
+        return redirect('training_list')
+    else:
+        return render(request, 'trainings/new.html', {'form': form})
