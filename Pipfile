@@ -30,6 +30,7 @@ wcwidth = "==0.1.9"
 wrapt = "==1.12.1"
 Django = "==3.0.6"
 pandas = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.8"
