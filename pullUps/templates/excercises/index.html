@@ -3,17 +3,16 @@
     {% block content %}
     <div class="excercise_list">
         {% for excercise in showAll %}
-        {{ excercise }} <br> 
-            <div class= "linksList"> 
-                <div class = "link"> 
-                    <a href="{% url 'excercise_show' pk=excercise.pk %}">show </a> 
+        {{ excercise }} <br>
+            <div class= "linksList">
+                <div class = "link">
+                    <a href="{% url 'excercise_show' pk=excercise.pk %}">show </a>
                 </div>
-                <div class = "link"> 
-                    <a href="{% url 'excercise_edit' pk=excercise.pk %}">edit</a> 
+                <div class = "link">
+                    <a href="{% url 'excercise_edit' pk=excercise.pk %}">edit</a>
                 </div>
             </div>
         {% endfor %}<br>
         <a href="{% url 'excercise_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus" > nowy </span></a><br>
     </div>
     {% endblock %}
-

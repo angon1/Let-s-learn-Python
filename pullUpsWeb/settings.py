@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import psycopg2
-import django_heroku
+# import django_heroku
 
 
 
@@ -141,4 +141,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'pullUps/static/')
 # )
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
