@@ -1,8 +1,8 @@
 {% extends '../layout.html' %}
 {% block content %}
-    {{training_show}}<br>
+    {{excercise_block_show}}<br>
     <h2>Edytuj ćwiczenie</h2>
-    <form method="POST" action="{% url 'training_update' pk=training.pk %}" class="post-form">{% csrf_token %}
+    <form method="POST" action="{% url 'excercise_block_update' pk=excercise_block.pk %}" class="post-form">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="save btn btn-default">Save</button>
 {% endblock %}

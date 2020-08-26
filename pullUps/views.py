@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from pullUps.models import Excercise, Training
-from .forms import InputTrainingForm, InputExcerciseForm
+from .forms import InputTrainingForm, InputExcerciseForm, InputExcerciseSetForm
 
 # Create your views here.
 
@@ -38,7 +38,7 @@ def excercise_show(request, pk):
     # excerciseList = Excercise.objects.all()
     # return render(request, 'pullUps/show.html', {"bla": exampleVar, "showAll": excerciseList})
 
-    
+
 def excercise_new(request):
     form = InputExcerciseForm()
     return render(request, 'excercises/new.html', {'form': form})
@@ -75,16 +75,16 @@ def excercise_update(request, pk):
 
 
 
-def trainings_list(request):
+def training_list(request):
     trainingList = Training.objects.all()
     return render(request, 'trainings/index.html', {"showAll": trainingList})
 
 
-def trainings_new(request):
+def training_new(request):
     form = InputTrainingForm()
     return render(request, 'trainings/new.html', {'form': form})
 
-def trainings_create(request):
+def training_create(request):
     form  = InputTrainingForm(request.POST)
     print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
     if form.is_valid():
@@ -93,3 +93,82 @@ def trainings_create(request):
         return redirect('training_list')
     else:
         return render(request, 'trainings/new.html', {'form': form})
+
+
+
+def training_show(request, pk):
+    #tbd
+    print( " " )
+
+def training_edit(request, pk):
+    #tbd
+    print( " " )
+
+def training_update(request, pk):
+    #tbd
+    print( " " )
+
+
+def excercise_sets_list(request):
+    excercise_setsList = excercise_sets.objects.all()
+    return render(request, 'excercise_setss/index.html', {"showAll": excercise_setsList})
+
+
+def excercise_sets_new(request):
+    form = InputExcerciseSetForm()
+    return render(request, 'excercise_sets/new.html', {'form': form})
+
+def excercise_sets_create(request):
+    form  = InputExcerciseSetForm(request.POST)
+    print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
+    if form.is_valid():
+        excercise_sets = form.save(commit=False)
+        excercise_sets.save()
+        return redirect('excercise_sets_list')
+    else:
+        return render(request, 'excercise_setss/new.html', {'form': form})
+
+def excercise_sets_show(request, pk):
+    #tbd
+    print( " " )
+
+def excercise_sets_edit(request, pk):
+    #tbd
+    print( " " )
+
+def excercise_sets_update(request, pk):
+    #tbd
+    print( " " )
+
+
+
+def excercise_blocks_list(request):
+    excercise_blocksList = excercise_blocks.objects.all()
+    return render(request, 'excercise_blockss/index.html', {"showAll": excercise_blocksList})
+
+
+def excercise_blocks_new(request):
+    form = Inputexcercise_blocksForm()
+    return render(request, 'excercise_blockss/new.html', {'form': form})
+
+def excercise_blocks_create(request):
+    form  = Inputexcercise_blocksForm(request.POST)
+    print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
+    if form.is_valid():
+        excercise_blocks = form.save(commit=False)
+        excercise_blocks.save()
+        return redirect('excercise_blocks_list')
+    else:
+        return render(request, 'excercise_blockss/new.html', {'form': form})
+
+def excercise_blocks_show(request, pk):
+    #tbd
+    print( " " )
+
+def excercise_blocks_edit(request, pk):
+    #tbd
+    print( " " )
+
+def excercise_blocks_update(request, pk):
+    #tbd
+    print( " " )

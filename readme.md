@@ -62,13 +62,13 @@ https://tutorial.djangogirls.org/pl/
   Struktury przygotowane, trzeba zrobic url i widoki i formularze do obslugi
 - Porządkowanie pliku style.CSS:
   Dodałem kilka nowych klas (excercise_list, linksList, links) rzeby przygotować wstepny zarys konkretnego "widoku" - listy ćwiczeń.
-  
+
 
 2. Napotkane problemy:
   - Nie aktualizowaly się zmiany w plikach css:
 Wyśrodkowanie container - done - po zmianach w pliku .css nie laduja sie zmiany na www ;/ -> znaleźć rozwiazanie
 +Znalezione - trzeba kliknąć "disable cache" albo reloadować za pomocą "hard reload" - ctrl + shift + c
-  -uladnic header i footer  --- w sumie, stopka jest ladna. Nie wiem co tam by dodać, bo nic nie potrzebuje poki co wiecej. 
+  -uladnic header i footer  --- w sumie, stopka jest ladna. Nie wiem co tam by dodać, bo nic nie potrzebuje poki co wiecej.
 
 
 
@@ -91,13 +91,36 @@ https://tutorial.djangogirls.org/pl/
 
 
 2. Napotkane problemy, wątpliwości etc
-- Importowanie (przy formularzach na to wpadłem) - importuje pojedyncze formularze z pliku forms - czy da się gdzies ustawić "from plik import all"? - do sprawdzenia next time. 
+- Importowanie (przy formularzach na to wpadłem) - importuje pojedyncze formularze z pliku forms - czy da się gdzies ustawić "from plik import all"? - do sprawdzenia next time.
 
 
 
 3. Co zrobić nastepnym razem - oraz kiedy?
 - Wrzucenie obecnej apki w neta. Plan minimum
-- Dokończyć templatki dla treningu i excercise set. Podpiąć odpowiednie formularze. 
+- Dokończyć templatki dla treningu i excercise set. Podpiąć odpowiednie formularze.
 - Nauczyć się jak dobrze zrobić formularz z wieloma polami (np. excercise set: form dla cwiczenia, przerwy i powtórzeń i zapis 1 przyciskiem)
 - Stworzyć formularze dla setów, bloków i treningów
 - Kiedy: Po Spotkaniu produktywności we wtorek 11.08
+
+
+
+
+
+
+20.08:
+
+3. Co zrobić nastepnym razem - oraz kiedy?
+-
+- Dokończyć templatki dla treningu i excercise set i block Podpiąć odpowiednie formularze.
+- Nauczyć się jak dobrze zrobić formularz z wieloma polami (np. excercise set: form dla cwiczenia, przerwy i powtórzeń i zapis 1 przyciskiem)  :)
+- Stworzyć formularze dla setów, bloków i treningów
+- Kiedy: Po Spotkaniu produktywności we wtorek 11.08
+
+
+
+komendy na szybko:
+heroku ps:scale web=1
+git push heroku master
+heroku logs --tail
+heroku local
+heroku run python manage.py migrate

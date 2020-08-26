@@ -1,12 +1,12 @@
 <html>
     <head>
         {% load static %}
-        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">   
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <title>Nakurwiaj ten trening</title>
     </head>
     <body>
         <header>
-            <div class= logo> 
+            <div class= logo>
                 <a href="{% url 'main_page' %}" >Logo</a>
             </div>
             <nav>
@@ -15,7 +15,13 @@
                         <a href="{% url 'excercise_list' %}" class="top-menu"><span > Baza ćwiczeń </span></a><br>
                     </li>
                     <li>
-                        <a href="{% url 'trainings_list' %}">Baza Treningów </a>
+                        <a href="{% url 'training_list' %}">Baza Treningów </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'excercise_sets_list' %}">Baza Setów </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'excercise_blocks_list' %}">Baza Bloków </a>
                     </li>
                 </ul>
             </nav>

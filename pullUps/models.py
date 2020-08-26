@@ -12,12 +12,12 @@ class Excercise(models.Model):
     # ExcerciseSet -> powinien być obiekt składający się z tych danych:
     # {excercise, repsy, przerwa}
 class ExcerciseSet(models.Model):
-    repsSet = models.IntegerField()
+    repsCount = models.IntegerField()
     usedExcercise = models.ForeignKey(Excercise, on_delete=models.CASCADE, null=True)
     breakTimeAfterSet = models.IntegerField()
 
     def getReps(self):
-        return self.repsSet    #przenieść do blocks
+        return self.repsCount    #przenieść do blocks
 
     def __str__(self):
         return 'Used excercise:  {} reps:  {} break after set: {}'.format(self.usedExcercise, self.repsSet, self.breakTimeAfterSet)
@@ -47,7 +47,7 @@ class ExcerciseBlock(models.Model):
 
     def getBreakTime(self):
         return self.breakTime
-    
+
     def getExcercises(self):
         return self.excercise
 
@@ -65,4 +65,3 @@ class Training(models.Model):
 
     def __str__(self):
         return 'Training: {} Excercises {}'.format(self.name, blocks)
-
