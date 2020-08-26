@@ -1,8 +1,12 @@
 {% extends '../layout.html' %}
 {% block content %}
-    <h2>Dodaj Trening</h2>
-    <form method="POST" action="{% url 'training_create' %}" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+    <h2>Dodaj blok do treningu</h2>
+    <form method="POST" action="{% url 'training_create' pk=training.pk %}" class="post-form">{% csrf_token %}
+        {{ formName.as_p }}
+        {{ formBlocks.as_p }}
+        <br>
+        <h2>Czy chcesz dodać kolejny blok?</h2>
+        <button type="submit" class="save btn btn-default" value="addBlock">tak</button>
+        <button type="submit" class="save btn btn-default" value="saveTraining">Nie, zapisz trening</button>
     </form>
 {% endblock %}

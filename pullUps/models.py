@@ -28,11 +28,12 @@ class ExcerciseSet(models.Model):
 #    repsNumber = models.IntegerField()      #przenieść do treningu
 class ExcerciseBlock(models.Model):
     breakTimeAfterBlock = models.IntegerField()
-    ExcerciseSet = models.ManyToManyField(ExcerciseSet)
+    usedExcerciseSet = models.ManyToManyField(ExcerciseSet)
     block = []
+    countOfSets = models.IntegerField()
 
     def __str__(self):
-        return block
+        return self.block
 
     # Czy ja dobrze rozumiem, że w django w modelach nie daje funkcji na add?
     # def blockAdd(self, breakTimeAfterBlock, ExcerciseSet)
@@ -42,22 +43,17 @@ class ExcerciseBlock(models.Model):
     # def addExcercise(self, name, reps):
     #     self.excercise.append(ExcerciseSet(name, reps))
 
-    def getRepsNumber(self):
-        return self.repsNumber
+    # def getRepsNumber(self):
+    #     return self.repsNumber
 
-    def getBreakTime(self):
-        return self.breakTime
+    # def getBreakTime(self):
+    #     return self.breakTime
 
-    def getExcercises(self):
-        return self.excercise
+    # def getExcercises(self):
+    #     return self.excercise
 
-
-    def returnMe(self):
-        self.block = [name, repsNumber, breakTime, excercise]
-        return self.block
-
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 class Training(models.Model):
     blocks = models.ManyToManyField(ExcerciseBlock)

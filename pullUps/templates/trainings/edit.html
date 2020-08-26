@@ -2,7 +2,12 @@
 {% block content %}
     {{training_show}}<br>
     <h2>Edytuj ćwiczenie</h2>
-    <form method="POST" action="{% url 'training_update' pk=training.pk %}" class="post-form">{% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="save btn btn-default">Save</button>
+    <form method="POST" action="{% url 'training_update' %}" class="post-form">{% csrf_token %}
+    {{ formName.as_p }}
+    {{ formBlocks.as_p }}
+    <br>
+    <h2>Czy chcesz dodać kolejny blok?</h2>
+    <button type="submit" class="save btn btn-default" value="addBlock">tak</button>
+    <button type="submit" class="save btn btn-default" value="saveTraining">Nie, zapisz trening</button>
+    </form>
 {% endblock %}

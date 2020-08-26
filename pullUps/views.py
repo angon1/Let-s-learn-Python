@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from pullUps.models import Excercise, Training
-from .forms import InputTrainingForm, InputExcerciseForm, InputExcerciseSetForm
+from .forms import InputExcerciseForm, InputExcerciseSetForm, InputExcerciseBlockForm, InputTrainingNameForm, InputTrainingBlocksForm
 
 # Create your views here.
 
@@ -81,28 +81,55 @@ def training_list(request):
 
 
 def training_new(request):
-    form = InputTrainingForm()
-    return render(request, 'trainings/new.html', {'form': form})
+    formName = InputTrainingNameForm()
+    formBlocks = InputTrainingBlocksForm()
+    return render(request, 'trainings/new.html', {'formName': formName, 'formBlocks': formBlocks})
 
 def training_create(request):
-    form  = InputTrainingForm(request.POST)
-    print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
-    if form.is_valid():
-        training = form.save(commit=False)
-        training.save()
-        return redirect('training_list')
+    formName = InputTrainingNameForm(request.POST)
+    formBlocks = InputTrainingBlocksForm(request.POST)
+    print ('form =  {}  \n request = {} \n request.post= {}'.format(formName, request, request.POST))
+
+    if 'addBlock' in request.POST:
+        if formBlocks.is_valid():
+            trainingName = formName.save(commit=False)
+            training = formBlocks.save(commit=False)
+            training.save()
+            trainingName.save()
+            return render(request, 'trainings/edit.html', {'formName': formName, 'formBlocks': formBlocks})
+    elif 'saveTraining' in request.POST:
+        if formBlocks.is_valid():
+            trainingName = formName.save(commit=False)
+            training = formBlocks.save(commit=False)
+            training.save()
+            trainingName.save()
+            return redirect('training_list')
     else:
-        return render(request, 'trainings/new.html', {'form': form})
+        return render(request, 'trainings/new.html', {'formName': formName, 'formBlocks': formBlocks})
 
-
+# if request.method == 'POST':
+#         if 'addBlock' in request.POST:
+#             # bannedphraseform = BannedPhraseForm(request.POST, prefix='banned')
+#             # if bannedphraseform.is_valid():
+#             #     bannedphraseform.save()
+#             expectedphraseform = ExpectedPhraseForm(prefix='expected')
+#         elif 'saveTraining' in request.POST:
+#             # expectedphraseform = ExpectedPhraseForm(request.POST, prefix='expected')
+#             # if expectedphraseform.is_valid():
+#             #     expectedphraseform.save()
+#             bannedphraseform = BannedPhraseForm(prefix='banned')
+#     else:
 
 def training_show(request, pk):
     #tbd
     print( " " )
 
 def training_edit(request, pk):
-    #tbd
-    print( " " )
+    training = get_object_or_404(Training, pk=pk)
+    formName = InputTrainingNameForm()
+    formBlocks = InputTrainingBlocksForm()
+    return render(request, 'trainings/new.html', {'formName': formName, 'formBlocks': formBlocks})
+
 
 def training_update(request, pk):
     #tbd
@@ -144,22 +171,22 @@ def excercise_sets_update(request, pk):
 
 def excercise_blocks_list(request):
     excercise_blocksList = excercise_blocks.objects.all()
-    return render(request, 'excercise_blockss/index.html', {"showAll": excercise_blocksList})
+    return render(request, 'excercise_blocks/index.html', {"showAll": excercise_blocksList})
 
 
 def excercise_blocks_new(request):
-    form = Inputexcercise_blocksForm()
-    return render(request, 'excercise_blockss/new.html', {'form': form})
+    form = InputExcerciseBlockForm()
+    return render(request, 'excercise_blocks/new.html', {'form': form})
 
 def excercise_blocks_create(request):
-    form  = Inputexcercise_blocksForm(request.POST)
+    form  = InputExcerciseBlockForm(request.POST)
     print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
     if form.is_valid():
         excercise_blocks = form.save(commit=False)
         excercise_blocks.save()
         return redirect('excercise_blocks_list')
     else:
-        return render(request, 'excercise_blockss/new.html', {'form': form})
+        return render(request, 'excercise_blocks/new.html', {'form': form})
 
 def excercise_blocks_show(request, pk):
     #tbd

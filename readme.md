@@ -113,9 +113,15 @@ https://tutorial.djangogirls.org/pl/
 -
 - Dokończyć templatki dla treningu i excercise set i block Podpiąć odpowiednie formularze.
 - Nauczyć się jak dobrze zrobić formularz z wieloma polami (np. excercise set: form dla cwiczenia, przerwy i powtórzeń i zapis 1 przyciskiem)  :)
+
 - Stworzyć formularze dla setów, bloków i treningów
 - Kiedy: Po Spotkaniu produktywności we wtorek 11.08
 
+
+
+26.08:
+
+Formularz bloku - zrobić obsługę nieskończonej pętli dodawania setów. Póki co jest tylko pojedynczy set i powtarzanie go. A tu mogą być różne sety. Po prostu podzielic na dwa formularze - jeden do dodawania przerwy po bloku, drugi - który będzie się renderował odpowiednią ilość razy - do wyboru setów.
 
 
 komendy na szybko:
