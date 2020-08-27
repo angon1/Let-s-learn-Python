@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from pullUps.models import Excercise, Training
+from pullUps.models import Excercise, Training, ExcerciseSet, ExcerciseBlock
 from .forms import InputExcerciseForm, InputExcerciseSetForm, InputExcerciseBlockForm, InputTrainingNameForm, InputTrainingBlocksForm
 
 # Create your views here.
@@ -137,8 +137,8 @@ def training_update(request, pk):
 
 
 def excercise_sets_list(request):
-    excercise_setsList = excercise_sets.objects.all()
-    return render(request, 'excercise_setss/index.html', {"showAll": excercise_setsList})
+    excercise_sets = ExcerciseSet.objects.all()
+    return render(request, 'excercise_sets/index.html', {"showAll": excercise_sets})
 
 
 def excercise_sets_new(request):
@@ -156,8 +156,8 @@ def excercise_sets_create(request):
         return render(request, 'excercise_setss/new.html', {'form': form})
 
 def excercise_sets_show(request, pk):
-    #tbd
-    print( " " )
+    excercise_sets = ExcerciseSet.objects.get(pk=pk)
+    return render(request, 'excercise_sets/show.html', {"excercise_sets_show": excercise_sets})
 
 def excercise_sets_edit(request, pk):
     #tbd
@@ -170,8 +170,8 @@ def excercise_sets_update(request, pk):
 
 
 def excercise_blocks_list(request):
-    excercise_blocksList = excercise_blocks.objects.all()
-    return render(request, 'excercise_blocks/index.html', {"showAll": excercise_blocksList})
+    excercise_blocks = ExcerciseBlock.objects.all()
+    return render(request, 'excercise_blocks/index.html', {"showAll": excercise_blocks})
 
 
 def excercise_blocks_new(request):
@@ -189,8 +189,8 @@ def excercise_blocks_create(request):
         return render(request, 'excercise_blocks/new.html', {'form': form})
 
 def excercise_blocks_show(request, pk):
-    #tbd
-    print( " " )
+    excercise_block = ExcerciseBlock.objects.get(pk=pk)
+    return render(request, 'excercise_blocks/show.html', {"excercise_blocks_show": excercise_block})
 
 def excercise_blocks_edit(request, pk):
     #tbd

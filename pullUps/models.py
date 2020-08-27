@@ -20,7 +20,7 @@ class ExcerciseSet(models.Model):
         return self.repsCount    #przenieść do blocks
 
     def __str__(self):
-        return 'Used excercise:  {} reps:  {} break after set: {}'.format(self.usedExcercise, self.repsSet, self.breakTimeAfterSet)
+        return 'Used excercise:  {} reps:  {} break after set: {}'.format(self.usedExcercise, self.repsCount, self.breakTimeAfterSet)
 
 
 # ExcerciseBlock to powinien być obiekt składający się z: przerwy po bloku i listy ExcerciseSet
@@ -33,7 +33,7 @@ class ExcerciseBlock(models.Model):
     countOfSets = models.IntegerField()
 
     def __str__(self):
-        return self.block
+        return 'Used excercise:  {} countOfSets:  {} break after block: {}'.format(self.usedExcerciseSet, self.countOfSets, self.breakTimeAfterBlock)
 
     # Czy ja dobrze rozumiem, że w django w modelach nie daje funkcji na add?
     # def blockAdd(self, breakTimeAfterBlock, ExcerciseSet)

@@ -1,18 +1,18 @@
 {% extends '../layout.html' %}
 
     {% block content %}
-    <div class="training_list">
-        {% for training in showAll %}
-        {{ training }} <br>
+    <div class="excercise_blocks_list">
+        {% for excercise_blocks in showAll %}
+        {{ excercise_blocks }} <br>
             <div class= "linksList">
                 <div class = "link">
-                    <a href="{% url 'training_show' pk=training.pk %}">show </a>
+                    <a href="{% url 'excercise_blocks_show' pk=excercise_blocks.pk %}">show </a>
                 </div>
                 <div class = "link">
-                    <a href="{% url 'training_edit' pk=training.pk %}">edit</a>
+                    <a href="{% url 'excercise_blocks_edit' pk=excercise_blocks.pk %}">edit</a>
                 </div>
             </div>
         {% endfor %}<br>
-        <a href="{% url 'training_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus" > nowy </span></a><br>
+        <a href="{% url 'excercise_blocks_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus" > nowy </span></a><br>
     </div>
     {% endblock %}
