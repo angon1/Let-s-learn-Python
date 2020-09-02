@@ -183,13 +183,18 @@ def excercise_blocks_create(request):
     print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
     if form.is_valid():
         excercise_blocks = form.save(commit=False)
-        excercise_blocks.save()
+        debugVar = excercise_blocks.save()
+        print('debug = {}'.format(debugVar))
+        print('excercise_blocks = {}'.format(excercise_blocks))
         return redirect('excercise_blocks_list')
     else:
         return render(request, 'excercise_blocks/new.html', {'form': form})
 
 def excercise_blocks_show(request, pk):
     excercise_block = ExcerciseBlock.objects.get(pk=pk)
+    print(excercise_block)
+    print(excercise_block.breakTimeAfterBlock)
+    print(excercise_block.usedExcerciseSets)
     return render(request, 'excercise_blocks/show.html', {"excercise_blocks_show": excercise_block})
 
 def excercise_blocks_edit(request, pk):
