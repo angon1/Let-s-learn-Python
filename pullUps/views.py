@@ -157,15 +157,22 @@ def excercise_sets_create(request):
 
 def excercise_sets_show(request, pk):
     excercise_sets = ExcerciseSet.objects.get(pk=pk)
-    return render(request, 'excercise_sets/show.html', {"excercise_sets_show": excercise_sets})
+    return render(request, 'excercise_sets/show.html', {"excercise_sets_show": excercise_sets_show})
 
 def excercise_sets_edit(request, pk):
-    #tbd
-    print( " " )
+    excercise_set = get_object_or_404(ExcerciseSet, pk=pk)
+    form  = InputExcerciseSetForm(instance=excercise_set)
+    return render(request, 'excercise_sets/edit.html', {'form': form, 'excercise_set': excercise_set})
 
 def excercise_sets_update(request, pk):
-    #tbd
-    print( " " )
+    oldExcerciseSet = get_object_or_404(ExcerciseSet, pk=pk)
+    form  = InputExcerciseSetForm(request.POST, instance=oldExcerciseSet)
+    if form.is_valid():
+        newExcerciseSet = form.save(commit=False)
+        newExcerciseSet.save()
+        return redirect('excercise_list')
+    else:
+        return render(request, 'excercise_sets/edit.html', {'form': form, 'excercise_sets_update': oldExcerciseSet})
 
 
 
@@ -198,9 +205,19 @@ def excercise_blocks_show(request, pk):
     return render(request, 'excercise_blocks/show.html', {"excercise_blocks_show": excercise_block})
 
 def excercise_blocks_edit(request, pk):
-    #tbd
-    print( " " )
+    excercise_block = get_object_or_404(ExcerciseBlock, pk=pk)
+    print(excercise_block)
+    print(excercise_block.breakTimeAfterBlock)
+    print(excercise_block.usedExcerciseSets)
+    form  = InputExcerciseBlockForm(instance=excercise_block)
+    return render(request, 'excercise_blocks/edit.html', {'form': form, 'excercise_block': excercise_block})
 
 def excercise_blocks_update(request, pk):
-    #tbd
-    print( " " )
+    oldExcerciseBlock = get_object_or_404(ExcerciseBlock, pk=pk)
+    form  = InputExcerciseBlockForm(request.POST, instance=oldExcerciseBlock)
+    if form.is_valid():
+        newExcerciseBlock = form.save(commit=False)
+        newExcerciseBlock.save()
+        return redirect('excercise_blocks_list')
+    else:
+        return render(request, 'excercise_blocks/edit.html', {'form': form, 'excercise_blocks_update': oldExcerciseBlock})
