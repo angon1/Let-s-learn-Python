@@ -1,16 +1,14 @@
 from django import forms
 from .models import Excercise, Training, ExcerciseSet, ExcerciseBlock
 
-class InputTrainingNameForm(forms.ModelForm):
+class InputTrainingForm(forms.ModelForm):
     class Meta:
         model = Training
-        fields = ('name',)
-
-class InputTrainingBlocksForm(forms.ModelForm):
-    class Meta:
-        model = Training
-        fields = ('blocks',)
-
+        fields = ('name', 'blocks')
+        labels = {
+            'name': 'Nazwa',
+            'blocks': 'Bloki',
+        }
 
 class InputExcerciseForm(forms.ModelForm):
     class Meta:
@@ -36,20 +34,3 @@ class InputExcerciseBlockForm(forms.ModelForm):
             'breakTimeAfterBlock': 'Przerwa po bloku',
             'usedExcerciseSets': 'set do bloku',
         }
-
-class InputExcerciseBlockAddSetForm(forms.ModelForm):
-    class Meta:
-        model = ExcerciseBlock
-        fields = ('usedExcerciseSets',)
-        labels = {
-            'usedExcerciseSets': 'set do bloku',
-        }
-    # repsCount = models.IntegerField()
-    # usedExcercise = models.ForeignKey(Excercise, on_delete=models.CASCADE, null=True)
-    # breakTimeAfterSet = models.IntegerField()
-
-    # class InputExcerciseForm(forms.ModelForm):
-
-    # class Meta:
-    #     model = Excercise
-    #     fields = ('name',)

@@ -124,6 +124,11 @@ https://tutorial.djangogirls.org/pl/
 Formularz bloku - zrobić obsługę nieskończonej pętli dodawania setów. Póki co jest tylko pojedynczy set i powtarzanie go. A tu mogą być różne sety. Po prostu podzielic na dwa formularze - jeden do dodawania przerwy po bloku, drugi - który będzie się renderował odpowiednią ilość razy - do wyboru setów.
 
 
+10.09:
+
+
+
+
 komendy na szybko:
 heroku ps:scale web=1
 git push heroku master

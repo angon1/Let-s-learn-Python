@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core import serializers
+from django.http import JsonResponse
 from pullUps.models import Excercise, Training, ExcerciseSet, ExcerciseBlock
-from .forms import InputExcerciseForm, InputExcerciseSetForm, InputExcerciseBlockForm, InputTrainingNameForm, InputTrainingBlocksForm
+from .forms import InputExcerciseForm, InputExcerciseSetForm, InputExcerciseBlockForm, InputTrainingForm
+
 
 # Create your views here.
 
@@ -72,7 +75,11 @@ def excercise_update(request, pk):
         return render(request, 'excercises/edit.html', {'form': form, 'excercise': oldExcercise})
 
 
-
+def excercise_delete(request, pk):
+    excercise = get_object_or_404(Excercise, pk=pk)
+    print(excercise)
+    excercise.delete()
+    return redirect('excercise_list')
 
 
 def training_list(request):
@@ -81,60 +88,70 @@ def training_list(request):
 
 
 def training_new(request):
-    formName = InputTrainingNameForm()
-    formBlocks = InputTrainingBlocksForm()
-    return render(request, 'trainings/new.html', {'formName': formName, 'formBlocks': formBlocks})
+    form = InputTrainingForm()
+    return render(request, 'trainings/new.html', {'form': form})
 
 def training_create(request):
-    formName = InputTrainingNameForm(request.POST)
-    formBlocks = InputTrainingBlocksForm(request.POST)
-    print ('form =  {}  \n request = {} \n request.post= {}'.format(formName, request, request.POST))
-
-    if 'addBlock' in request.POST:
-        if formBlocks.is_valid():
-            trainingName = formName.save(commit=False)
-            training = formBlocks.save(commit=False)
-            training.save()
-            trainingName.save()
-            return render(request, 'trainings/edit.html', {'formName': formName, 'formBlocks': formBlocks})
-    elif 'saveTraining' in request.POST:
-        if formBlocks.is_valid():
-            trainingName = formName.save(commit=False)
-            training = formBlocks.save(commit=False)
-            training.save()
-            trainingName.save()
-            return redirect('training_list')
+    form = InputTrainingForm(request.POST)
+    print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
+    print('form validation ={}'.format(form.is_valid()))
+    if form.is_valid():
+        print('form is valid')
+        training = form.save().save()
+        return redirect('training_list')
     else:
-        return render(request, 'trainings/new.html', {'formName': formName, 'formBlocks': formBlocks})
-
-# if request.method == 'POST':
-#         if 'addBlock' in request.POST:
-#             # bannedphraseform = BannedPhraseForm(request.POST, prefix='banned')
-#             # if bannedphraseform.is_valid():
-#             #     bannedphraseform.save()
-#             expectedphraseform = ExpectedPhraseForm(prefix='expected')
-#         elif 'saveTraining' in request.POST:
-#             # expectedphraseform = ExpectedPhraseForm(request.POST, prefix='expected')
-#             # if expectedphraseform.is_valid():
-#             #     expectedphraseform.save()
-#             bannedphraseform = BannedPhraseForm(prefix='banned')
-#     else:
+        print('form is not valid')
+        print(form)
+        print("errors:\n")
+        print(form.errors)
+        return render(request, 'trainings/new.html', {'form': form})
 
 def training_show(request, pk):
-    #tbd
-    print( " " )
+    training = Training.objects.get(pk=pk)
+    print(training)
+    print(training.name)
+    print(training.blocks)
+    return render(request, 'trainings/show.html', {"training_show": training})
 
 def training_edit(request, pk):
     training = get_object_or_404(Training, pk=pk)
-    formName = InputTrainingNameForm()
-    formBlocks = InputTrainingBlocksForm()
-    return render(request, 'trainings/new.html', {'formName': formName, 'formBlocks': formBlocks})
-
+    print(training)
+    form  = InputTrainingForm(instance=training)
+    return render(request, 'trainings/edit.html', {'form': form, 'training': training})
 
 def training_update(request, pk):
-    #tbd
-    print( " " )
+    oldTraining = get_object_or_404(Training, pk=pk)
+    form  = InputTrainingForm(request.POST, instance=oldTraining)
+    if form.is_valid():
+        newTraining = form.save()
+        newTraining.save()
+        return redirect('training_list')
+    else:
+        return render(request, 'trainings/edit.html', {'form': form, 'training_update': oldTraining})
 
+def training_serialize(request, pk):
+    training = get_object_or_404(Training, pk=pk)
+    print(training)
+    print(training.name)
+    print(training.blocks.all())
+    for block in training.blocks.all():
+        print(block.pk)
+        for excSet in block.usedExcerciseSets.all():
+            print(excSet)
+            print("cos")
+    # block = get_object_or_404(ExcerciseBlock, pk=training.blocks.first())
+    # pk = map()
+    # print(block)
+    # blocks = serializers.serialize("json", [block])
+    trainingData = serializers.serialize("json", [training])
+    print(trainingData)
+    return JsonResponse({"data" : trainingData})
+
+def training_delete(request, pk):
+    training = get_object_or_404(Training, pk=pk)
+    print(training)
+    training.delete()
+    return redirect('training_list')
 
 def excercise_sets_list(request):
     excercise_sets = ExcerciseSet.objects.all()
@@ -174,7 +191,11 @@ def excercise_sets_update(request, pk):
     else:
         return render(request, 'excercise_sets/edit.html', {'form': form, 'excercise_sets_update': oldExcerciseSet})
 
-
+def excercise_sets_delete(request, pk):
+    excercise_sets = get_object_or_404(ExcerciseSet, pk=pk)
+    print(excercise_sets)
+    excercise_sets.delete()
+    return redirect('excercise_sets_list')
 
 def excercise_blocks_list(request):
     excercise_blocks = ExcerciseBlock.objects.all()
@@ -189,10 +210,7 @@ def excercise_blocks_create(request):
     form  = InputExcerciseBlockForm(request.POST)
     print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
     if form.is_valid():
-        excercise_blocks = form.save(commit=False)
-        debugVar = excercise_blocks.save()
-        print('debug = {}'.format(debugVar))
-        print('excercise_blocks = {}'.format(excercise_blocks))
+        excercise_blocks = form.save().save()
         return redirect('excercise_blocks_list')
     else:
         return render(request, 'excercise_blocks/new.html', {'form': form})
@@ -208,7 +226,7 @@ def excercise_blocks_edit(request, pk):
     excercise_block = get_object_or_404(ExcerciseBlock, pk=pk)
     print(excercise_block)
     print(excercise_block.breakTimeAfterBlock)
-    print(excercise_block.usedExcerciseSets)
+    print(excercise_block.usedExcerciseSets.all())
     form  = InputExcerciseBlockForm(instance=excercise_block)
     return render(request, 'excercise_blocks/edit.html', {'form': form, 'excercise_block': excercise_block})
 
@@ -221,3 +239,9 @@ def excercise_blocks_update(request, pk):
         return redirect('excercise_blocks_list')
     else:
         return render(request, 'excercise_blocks/edit.html', {'form': form, 'excercise_blocks_update': oldExcerciseBlock})
+
+def excercise_blocks_delete(request, pk):
+    excercise_blocks = get_object_or_404(ExcerciseBlock, pk=pk)
+    print(excercise_blocks)
+    excercise_blocks.delete()
+    return redirect('excercise_blocks_list')

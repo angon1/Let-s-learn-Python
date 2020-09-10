@@ -10,7 +10,9 @@ urlpatterns = [
     path('excercises/create', views.excercise_create, name='excercise_create'),
     path('excercises/<int:pk>/edit', views.excercise_edit, name='excercise_edit'),
     path('excercises/<int:pk>/update', views.excercise_update, name='excercise_update'),
+    path('excercises/<int:pk>/delete', views.excercise_delete, name='excercise_delete'),
     path('excercises/', views.excercise_list, name='excercise_list'),
+
 
 
     path('training/index', views.training_list, name='training_list'),
@@ -19,6 +21,8 @@ urlpatterns = [
     path('training/create', views.training_create, name='training_create'),
     path('training/<int:pk>/edit', views.training_edit, name='training_edit'),
     path('training/<int:pk>/update', views.training_update, name='trainings_update'),
+    path('training/<int:pk>/delete', views.training_delete, name='trainings_delete'),
+    path('training/<int:pk>/serialize', views.training_serialize, name='trainings_serialize'),
 
     path('excercise_blocks/index', views.excercise_blocks_list, name='excercise_blocks_list'),
     path('excercise_blocks/<int:pk>/show', views.excercise_blocks_show, name='excercise_blocks_show'),
@@ -26,6 +30,7 @@ urlpatterns = [
     path('excercise_blocks/create', views.excercise_blocks_create, name='excercise_blocks_create'),
     path('excercise_blocks/<int:pk>/edit', views.excercise_blocks_edit, name='excercise_blocks_edit'),
     path('excercise_blocks/<int:pk>/update', views.excercise_blocks_update, name='excercise_blocks_update'),
+    path('excercise_blocks/<int:pk>/delete', views.excercise_blocks_delete, name='excercise_blocks_delete'),
 
     path('excercise_sets/index', views.excercise_sets_list, name='excercise_sets_list'),
     path('excercise_sets/<int:pk>/show', views.excercise_sets_show, name='excercise_sets_show'),
@@ -33,6 +38,7 @@ urlpatterns = [
     path('excercise_sets/create', views.excercise_sets_create, name='excercise_sets_create'),
     path('excercise_sets/<int:pk>/edit', views.excercise_sets_edit, name='excercise_sets_edit'),
     path('excercise_sets/<int:pk>/update', views.excercise_sets_update, name='excercise_sets_update'),
+    path('excercise_sets/<int:pk>/delete', views.excercise_sets_delete, name='excercise_sets_delete'),
 
 
 ]
