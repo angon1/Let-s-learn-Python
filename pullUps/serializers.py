@@ -1,35 +1,43 @@
-from django.db import models
+from rest_framework import serializers
+from pullUps.models import Excercise, ExcerciseSet, ExcerciseBlock, Training
 
 # Create your models here.
 
-class Excercise(models.Model):
-    name = models.TextField()
+class ExcerciseSerializer(serializers.ModelSerializer):
+    """
+    Serializing single excercise
+    """
 
-    def __str__(self):
-        return self.name
+    class Meta:
+        model = Excercise
+        fields = ['name']
 
-class ExcerciseSet(models.Model):
-    repsCount = models.IntegerField()
-    usedExcercise = models.ForeignKey(Excercise, on_delete=models.CASCADE, null=True)
-    breakTimeAfterSet = models.IntegerField()
 
-    def getReps(self):
-        return self.repsCount    #przenieść do blocks
+class ExcerciseSetSerializer(serializers.ModelSerializer):
+    """
+    Serializing single set
+    """
+    usedExcercise = ExcerciseSerializer()
+    class Meta:
+        model = ExcerciseSet
+        fields = ['repsCount', 'usedExcercise', 'breakTimeAfterSet']
 
-    def __str__(self):
-        return 'Used excercise:  {} reps:  {} break after set: {}'.format(self.usedExcercise, self.repsCount, self.breakTimeAfterSet)
 
-class ExcerciseBlock(models.Model):
-    breakTimeAfterBlock = models.IntegerField()
-    usedExcerciseSets = models.ManyToManyField(ExcerciseSet)
+class ExcerciseBlockSerializer(serializers.ModelSerializer):
+    """
+    Serializing single Block
+    """
+    usedExcerciseSets = ExcerciseSetSerializer(many=True)
+    class Meta:
+        model = ExcerciseBlock
+        fields = ['breakTimeAfterBlock', 'usedExcerciseSets']
 
-    def __str__(self):
-        return ' break after block: {}\nsets count: {}'.format(self.breakTimeAfterBlock, self.usedExcerciseSets.count())
 
-class Training(models.Model):
-    blocks = models.ManyToManyField(ExcerciseBlock)
-    name = models.TextField()
-    #todo latwy sposob wyswietlenia cwiczen uzytych w treningu
-
-    def __str__(self):
-        return 'Training: {} Blocks count used: {}'.format(self.name, self.blocks.count())
+class TrainingSerializer(serializers.ModelSerializer):
+    """
+    Serializing single Block
+    """
+    blocks = ExcerciseBlockSerializer(many=True)
+    class Meta:
+        model = Training
+        fields = ['blocks', 'name']

@@ -12,10 +12,10 @@
                     <a href="{% url 'training_edit' pk=training.pk %}">edit</a>
                 </div>
                 <div class = "link">
-                    <a href="{% url 'trainings_delete' pk=training.pk %}">delete</a>
+                    <a href="{% url 'training_delete' pk=training.pk %}">delete</a>
                 </div>
                 <div class = "link">
-                    <a href="{% url 'trainings_serialize' pk=training.pk %}">serialize</a>
+                    <a href="{% url 'training_serialize' pk=training.pk %}">serialize</a>
                 </div>
             </div>
         {% endfor %}<br>

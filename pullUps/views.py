@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core import serializers
+from rest_framework import generics
+from django.views.generic import *
+from pullUps.serializers import *
 from django.http import JsonResponse
 from pullUps.models import Excercise, Training, ExcerciseSet, ExcerciseBlock
 from .forms import InputExcerciseForm, InputExcerciseSetForm, InputExcerciseBlockForm, InputTrainingForm
-
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 # Create your views here.
 
@@ -81,6 +84,19 @@ def excercise_delete(request, pk):
     excercise.delete()
     return redirect('excercise_list')
 
+class ExcerciseView(APIView):
+    """
+    Returns an excercise.
+    """
+    def get(self, request, pk, format=None):
+        """
+        Return a list of all excercises.
+        """
+        print(pk)
+        excercises = Excercise.objects.get(pk=pk)
+        serializedExcercises = ExcerciseSerializer(excercises)
+        return Response(serializedExcercises.data)
+
 
 def training_list(request):
     trainingList = Training.objects.all()
@@ -129,29 +145,42 @@ def training_update(request, pk):
     else:
         return render(request, 'trainings/edit.html', {'form': form, 'training_update': oldTraining})
 
-def training_serialize(request, pk):
-    training = get_object_or_404(Training, pk=pk)
-    print(training)
-    print(training.name)
-    print(training.blocks.all())
-    for block in training.blocks.all():
-        print(block.pk)
-        for excSet in block.usedExcerciseSets.all():
-            print(excSet)
-            print("cos")
-    # block = get_object_or_404(ExcerciseBlock, pk=training.blocks.first())
-    # pk = map()
-    # print(block)
-    # blocks = serializers.serialize("json", [block])
-    trainingData = serializers.serialize("json", [training])
-    print(trainingData)
-    return JsonResponse({"data" : trainingData})
+# def training_serialize(request, pk):
+#     training = get_object_or_404(Training, pk=pk)
+#     print(training)
+#     print(training.name)
+#     print(training.blocks.all())
+#     for block in training.blocks.all():
+#         print(block.pk)
+#         for excSet in block.usedExcerciseSets.all():
+#             print(excSet)
+#             print("cos")
+#     # block = get_object_or_404(ExcerciseBlock, pk=training.blocks.first())
+#     # pk = map()
+#     # print(block)
+#     # blocks = serializers.serialize("json", [block])
+#     trainingData = serializers.serialize("json", [training])
+#     print(trainingData)
+#     return JsonResponse({"data" : trainingData})
 
 def training_delete(request, pk):
     training = get_object_or_404(Training, pk=pk)
     print(training)
     training.delete()
     return redirect('training_list')
+
+class TrainingView(APIView):
+    """
+    Returns an Training.
+    """
+    def get(self, request, pk, format=None):
+        """
+        Return an Training.
+        """
+        print(pk)
+        training = Training.objects.get(pk=pk)
+        serializedTraining = TrainingSerializer(training)
+        return Response(serializedTraining.data)
 
 def excercise_sets_list(request):
     excercise_sets = ExcerciseSet.objects.all()
@@ -196,6 +225,20 @@ def excercise_sets_delete(request, pk):
     print(excercise_sets)
     excercise_sets.delete()
     return redirect('excercise_sets_list')
+
+class ExcerciseSetView(APIView):
+    """
+    Returns an excerciseSet.
+    """
+    def get(self, request, pk, format=None):
+        """
+        Return an excerciseSet.
+        """
+        print(pk)
+        excerciseSet = ExcerciseSet.objects.get(pk=pk)
+        serializedExcerciseSet = ExcerciseSetSerializer(excerciseSet)
+        return Response(serializedExcerciseSet.data)
+
 
 def excercise_blocks_list(request):
     excercise_blocks = ExcerciseBlock.objects.all()
@@ -245,3 +288,16 @@ def excercise_blocks_delete(request, pk):
     print(excercise_blocks)
     excercise_blocks.delete()
     return redirect('excercise_blocks_list')
+
+class ExcerciseBlockView(APIView):
+    """
+    Returns an excerciseBlock.
+    """
+    def get(self, request, pk, format=None):
+        """
+        Return an excerciseBlock.
+        """
+        print(pk)
+        excerciseBlock = ExcerciseBlock.objects.get(pk=pk)
+        serializedExcerciseBlock = ExcerciseBlockSerializer(excerciseBlock)
+        return Response(serializedExcerciseBlock.data)

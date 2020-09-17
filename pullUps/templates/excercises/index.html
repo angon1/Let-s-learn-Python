@@ -14,6 +14,9 @@
                 <div class = "link">
                     <a href="{% url 'excercise_delete' pk=excercise.pk %}">delete</a>
                 </div>
+                <div class = "link">
+                    <a href="{% url 'excercise_serialize' pk=excercise.pk %}">serialize</a>
+                </div>
             </div>
         {% endfor %}<br>
         <a href="{% url 'excercise_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus" > nowy </span></a><br>

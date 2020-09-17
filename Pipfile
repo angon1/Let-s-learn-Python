@@ -32,6 +32,7 @@ Django = "==3.0.6"
 pandas = "*"
 dj-database-url = "*"
 django-heroku = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.8"

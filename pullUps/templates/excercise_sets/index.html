@@ -14,6 +14,9 @@
                 <div class = "link">
                     <a href="{% url 'excercise_sets_delete' pk=excercise_set.pk %}">delete</a>
                 </div>
+                <div class = "link">
+                    <a href="{% url 'excercise_sets_serialize' pk=excercise_set.pk %}">serialize</a>
+                </div>
             </div>
         {% endfor %}<br>
         <a href="{% url 'excercise_sets_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus" > nowy </span></a><br>
