@@ -301,3 +301,9 @@ class ExcerciseBlockView(APIView):
         excerciseBlock = ExcerciseBlock.objects.get(pk=pk)
         serializedExcerciseBlock = ExcerciseBlockSerializer(excerciseBlock)
         return Response(serializedExcerciseBlock.data)
+
+
+
+# def YOUR_VIEW_DEF(request):
+#     YOUR_OBJECT.objects.filter(pk=pk).update(views=F('views')+1)
+#     return HttpResponseRedirect(request.GET.get('next'))

@@ -113,5 +113,6 @@ body {display: flex; flex-direction: column;}
     margin: 10px;
     width: 100px;
     height: 100px;
+    display: flex;
     background-color:   rgb(54, 113, 202);
 }

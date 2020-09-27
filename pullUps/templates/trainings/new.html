@@ -1,29 +1,84 @@
-
-<script type="text/javascript">
-    let addBlock = () =>
-    {
-        let block_root = window.document.getElementById("blockRoot")
-        let new_div = document.createElement("div")
-        new_div.classList.add("blockForm")
-
-        block_root.append(new_div)
-    }
-
-</script>
 {% extends '../layout.html' %}
 {% block content %}
-    <h2>Dodaj blok do treningu</h2>
-    <form method="POST" action="{% url 'training_create' %}" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <div id="blockRoot"></div>
-        <br>
-        <div>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+// var idInput = document.getElementById('id-input');
+
+// function addBlock(e) {
+//   if (!formTemplate) return;
+
+//   e.target.parentNode.insertBefore(formTemplate, e.target);
+//   idInput.value = e.target.getAttribute('data-id');
+// };
+
+// Array.from(document.querySelectorAll('button.reply'))
+//   .forEach(btn => btn.onclick = toggleReply)
+
+    let addBlock = () =>
+    {
+        // let formTemplate = document.querySelector ('#form_template form')
+        // if (!formTemplate) return
+        let formTemplate = window.document.getElementById("form_template")
+        let block_root = window.document.getElementById("blockRoot")
+        let block_node = window.document.getElementById("block").cloneNode(true)
+        // let form_new = window.document.getElementById("blockNew").cloneNode(true)
+        let new_div = document.createElement("div")
+        new_div.classList.add("blockForm")
+        new_div.append(block_node)
+        block_root.append(new_div)
+        // formTemplate.classList.add("blockForm")
+        // new_div.cloneNode(formTemplate)
+        // block_root.append(formTemplate)
+        // block_root.insertBefore(formTemplate, new_div)
+    }
+    //     let formTemplate = document.querySelector('#form-template form');
+
+    //     let new_form = window.document.getElementById("blockNew")
+    //     new_form.appendChild(new_div)
+    //     new_form.
+    //     new_div.classList.add("blockForm")
+        // let my_form=document.createElement('FORM')
+        // my_form.name="block"
+        // my_form.method='POST'
+        // my_form.action="{% url 'training_create' %}"
+        // my_form.class="post-form"
+        // let my_tb=document.createElement('INPUT')
+        // my_tb.type='TEXT';
+        // my_tb.name='myInput';
+        // my_tb.value='Values of my Input';
+        // my_form.appendChild(my_tb)
+        // document.body.add(my_form,document.body.elements[0])
+        // document.my_form.submit()
+        // new_div.append("InputExcerciseBlockForm")
+        // new_div.open(url)
+        // let my_form = $.get(url)
+
+        // new_div.append(new_form)
+
+        // block_root.append(new_div)
+    // }
+</script>
+<h2>Dodaj blok do treningu</h2>
+    <div id="blockRoot">
+        <div id="form_template" style="display: none;">
+            <form
+                id="blockNew" method="POST" action="{% url 'training_create' %}" class="post-form">{% csrf_token %}
+                {{ form.as_p }}
+            </form>
+        </div>
+        <br>
+        <form id="block" method="POST" action="{% url 'training_create' %}" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+        </form>
+        <div>
             <h2>Czy chcesz dodać kolejny blok?</h2>
-            <div onclick="addBlock()">
-                + dodaj kolejny blok
-            </div>
+                <div onclick="addBlock()">
+                    +dodaj kolejny blok
+                </div>
         </div>
         <button type="submit" class="save btn btn-default">zapisz trening</button>
-    </form>
+    </div>
 {% endblock %}
