@@ -1,8 +1,23 @@
+<script type = "text/javascript">
+    let batonDivFunc = () => {
+        console.log(this)
+
+        if(window.document.getElementById("batonDiv").classList.contains("inactive"))
+        {
+            return window.document.getElementById("batonDiv").classList.remove("inactive")
+        }else
+        {
+            return window.document.getElementById("batonDiv").classList.add("inactive")}
+    }
+</script>
 {% extends '../layout.html' %}
 {% block content %}
     <h2>Dodaj Set</h2>
     <form method="POST" action="{% url 'excercise_sets_create' %}" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>
+        <button id="baton" onclick="batonDivFunc()" type="button" >Baton</button>
+        <div id="batonDiv"> Jakis Batonowy tekst </div>
+
     </form>
 {% endblock %}

@@ -31,7 +31,7 @@ class ExcerciseBlock(models.Model):
 
 class Training(models.Model):
     blocks = models.ManyToManyField(ExcerciseBlock)
-    name = models.TextField()
+    name = models.CharField(max_length=150)
     #todo latwy sposob wyswietlenia cwiczen uzytych w treningu
 
     def __str__(self):

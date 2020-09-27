@@ -94,3 +94,24 @@ html, body
        height: 100%;
 }
 body {display: flex; flex-direction: column;}
+
+#batonDiv
+{
+    width: 400px;
+    height: 800px;
+    background-color:   yellow;
+}
+
+#batonDiv.inactive
+{
+    background-color:   rgb(226, 46, 181);
+}
+
+
+.blockForm
+{
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+    background-color:   rgb(54, 113, 202);
+}

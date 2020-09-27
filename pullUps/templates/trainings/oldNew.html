@@ -1,0 +1,10 @@
+{% extends '../layout.html' %}
+{% block content %}
+    <h2>Dodaj blok do treningu</h2>
+    <form method="POST" action="{% url 'training_create' %}" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <h2>Czy chcesz dodać kolejny blok?</h2>
+        <button type="submit" class="save btn btn-default">zapisz trening</button>
+    </form>
+{% endblock %}

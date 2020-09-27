@@ -1,10 +1,29 @@
+
+<script type="text/javascript">
+    let addBlock = () =>
+    {
+        let block_root = window.document.getElementById("blockRoot")
+        let new_div = document.createElement("div")
+        new_div.classList.add("blockForm")
+
+        block_root.append(new_div)
+    }
+
+</script>
 {% extends '../layout.html' %}
 {% block content %}
     <h2>Dodaj blok do treningu</h2>
     <form method="POST" action="{% url 'training_create' %}" class="post-form">{% csrf_token %}
         {{ form.as_p }}
+        <div id="blockRoot"></div>
         <br>
-        <h2>Czy chcesz dodać kolejny blok?</h2>
+        <div>
+
+            <h2>Czy chcesz dodać kolejny blok?</h2>
+            <div onclick="addBlock()">
+                + dodaj kolejny blok
+            </div>
+        </div>
         <button type="submit" class="save btn btn-default">zapisz trening</button>
     </form>
 {% endblock %}
