@@ -1,5 +1,7 @@
 {% extends '../layout.html' %}
 {% block content %}
+{%block javascript %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
     let addBlock = () =>
     {
@@ -11,13 +13,17 @@
         // new_div.append(block_node)
         block_root.append(block_node)
     }
-    // let addForm = () =>
-    // {
-    //     let new_div = document.createElement("div")
-    //     new_div.classList.add("post-form")
-    //     new_div.
-    // }
+    let addForm = (url) =>
+    {
+        let new_div = document.createElement("div")
+        new_div.classList.add("post-form")
+        // window.open(url, "self")
+        let block_root = window.document.getElementById("blockRoot")
+        new_div.append(block_root)
+    }
+
 </script>
+{% endblock %}
 <h2>Dodaj blok do treningu</h2>
     <div id="blockRoot">
         <br>
@@ -27,10 +33,10 @@
     </div>
         <div>
             <h2>Czy chcesz dodać kolejny blok?</h2>
-            <form id="blockAdd" style="display: none;" method="POST" action="{% url 'excercise_blocks_new' %}" >{% csrf_token %}
-                {{ form.as_p }}
+            <form id="blockAdd" style="display: hide;" method="POST" action="{% url 'excercise_blocks_new' %}" >{% csrf_token %}
             </form>
-                <div onclick="addBlock()">
+
+                <div id="blockcreate" onclick="addBlock()">
                     +dodaj kolejny blok
                 </div>
         </div>
