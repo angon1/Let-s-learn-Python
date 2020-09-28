@@ -33,6 +33,8 @@ pandas = "*"
 dj-database-url = "*"
 django-heroku = "*"
 djangorestframework = "*"
+django-jquery = "*"
+django-static-jquery = "==2.1.4"
 
 [requires]
 python_version = "3.8"

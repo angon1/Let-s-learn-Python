@@ -1,8 +1,58 @@
 {% extends '../layout.html' %}
+
 {% block content %}
+<script type="text/javascript" >
+
+
+    let addBlock = () =>
+    {
+        let block_root = window.document.getElementById("blockRoot")
+        let block_node = window.document.getElementById("block").cloneNode(true)
+        block_node.classList.add("post-form")
+        block_node.setAttribute('style', 'display:block')
+        block_root.append(block_node)
+    }
+
+    $(function() { // shortcut for onDocumentReady
+
+        // When you click an "a" tag who is child of an item with class "subcategory_list"…
+        $('.addNewSet>a').click(function() {
+
+            var href = $(this).attr('href');
+
+            // Use this if you want to add a loading gif or something similar
+            // $('#subcategory_detail').html(my_cool_loading_gif_html)
+
+            $.get(href, {
+                success: function(response) {
+                    // If the ajax call is successful, take the response and inject in div with id "subcategory_detail"
+                    $('#setForm').html(response)
+                },
+                error: function(response) {
+                    // Handle ajax errors here
+                }
+            })
+            return false;
+        });
+
+    });
+</script>
+<div id="blockRoot">
     <h2>Dodaj sety do bloku</h2>
-    <form method="POST" action="{% url 'excercise_blocks_create' %}" class="post-form">{% csrf_token %}
+    <form id="block" method="POST" action="{% url 'excercise_blocks_create' %}" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Zapisz blok</button>
     </form>
+    <div id="blockcreate" onclick="addBlock()">
+        +dodaj kolejny blok
+    </div>
+    <div class="addNewSet">
+        <a href="{% url 'excercise_sets_newForm' %}">+dodaj nowy set</a>
+    </div>
+
+
+    <div class="col-md-9" id="setForm">
+        {% include '../excercise_sets/form.html' %}
+    </div>
+</div>
 {% endblock %}

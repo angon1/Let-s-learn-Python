@@ -116,3 +116,9 @@ body {display: flex; flex-direction: column;}
     display: flex;
     background-color:   rgb(54, 113, 202);
 }
+
+
+.addNewSet
+{
+    display: flex;
+}

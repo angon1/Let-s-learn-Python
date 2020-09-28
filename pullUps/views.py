@@ -191,6 +191,11 @@ def excercise_sets_new(request):
     form = InputExcerciseSetForm()
     return render(request, 'excercise_sets/new.html', {'form': form})
 
+def excercise_sets_newForm(request):
+    print(request)
+    form = InputExcerciseSetForm()
+    return render(request, 'excercise_sets/form.html', {'formSet': form})
+
 def excercise_sets_create(request):
     form  = InputExcerciseSetForm(request.POST)
     print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
@@ -199,7 +204,7 @@ def excercise_sets_create(request):
         excercise_sets.save()
         return redirect('excercise_sets_list')
     else:
-        return render(request, 'excercise_setss/new.html', {'form': form})
+        return render(request, 'excercise_sets/new.html', {'form': form})
 
 def excercise_sets_show(request, pk):
     excercise_sets = ExcerciseSet.objects.get(pk=pk)

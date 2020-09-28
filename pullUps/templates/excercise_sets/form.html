@@ -1,0 +1,7 @@
+{% block addSetForm %}
+    <h2>Dodaj Set</h2>
+    <form method="POST" action="{% url 'excercise_sets_create' %}" class="post-form">{% csrf_token %}
+        {{ formSet.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}

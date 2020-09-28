@@ -1,0 +1,30 @@
+let addSet = (url) =>
+{
+    let new_div = document.createElement("div")
+    new_div.classList.add("post-form")
+    new_div.classList.add("blockForm")
+    new_div.setAttribute("href", url)
+    new_div.setAttribute("id", "setForm")
+    let block_root = window.document.getElementById("blockRoot")
+
+    var href = $(this).attr('href');
+    console.log(href)
+    console.log(url)
+    $.get(href, {
+            success: function(response) {
+                // If the ajax call is successful, take the response and inject in div with id "subcategory_detail"
+                $('#setForm').html(response)
+            },
+            error: function(response) {
+                // Handle ajax errors here
+            }
+        })
+    let whereBefore = document.getElementById("addNewSet")
+    block_root.insertBefore(new_div,whereBefore)
+
+}
+
+
+<!-- {% include '../excercise_sets/form.html' %} -->
+
+onclick="addSet('{% url 'excercise_sets_newForm' %}')"

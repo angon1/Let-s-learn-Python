@@ -41,6 +41,6 @@ urlpatterns = [
     path('excercise_sets/<int:pk>/update', views.excercise_sets_update, name='excercise_sets_update'),
     path('excercise_sets/<int:pk>/delete', views.excercise_sets_delete, name='excercise_sets_delete'),
     path('excercise_sets/<int:pk>/serialize', views.ExcerciseSetView.as_view(), name='excercise_sets_serialize'),
-
+    path('excercise_sets/form', views.excercise_sets_newForm, name='excercise_sets_newForm'),
 
 ]

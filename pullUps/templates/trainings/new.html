@@ -6,7 +6,7 @@
     let addBlock = () =>
     {
         let block_root = window.document.getElementById("blockRoot")
-        let block_node = window.document.getElementById("blockAdd").cloneNode(true)
+        let block_node = window.document.getElementById("block").cloneNode(true)
         // let new_div = document.createElement("div")
         block_node.classList.add("post-form")
         block_node.setAttribute('style', 'display:block')
@@ -23,7 +23,8 @@
     }
 
 </script>
-{% endblock %}
+{% endblock javascript %}
+
 <h2>Dodaj blok do treningu</h2>
     <div id="blockRoot">
         <br>
