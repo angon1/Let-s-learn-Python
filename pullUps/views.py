@@ -254,6 +254,11 @@ def excercise_blocks_new(request):
     form = InputExcerciseBlockForm()
     return render(request, 'excercise_blocks/new.html', {'form': form})
 
+def excercise_blocks_newForm(request):
+    print(request)
+    form = InputExcerciseBlockForm()
+    return render(request, 'excercise_blocks/form.html', {'formBlock': form})
+
 def excercise_blocks_create(request):
     form  = InputExcerciseBlockForm(request.POST)
     print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))

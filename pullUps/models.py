@@ -30,7 +30,7 @@ class ExcerciseBlock(models.Model):
         return ' break after block: {}\nsets count: {}'.format(self.breakTimeAfterBlock, self.usedExcerciseSets.count())
 
 class Training(models.Model):
-    blocks = models.ManyToManyField(ExcerciseBlock)
+    blocks = models.ManyToManyField(ExcerciseBlock, unique=False)
     name = models.CharField(max_length=150)
     #todo latwy sposob wyswietlenia cwiczen uzytych w treningu
 

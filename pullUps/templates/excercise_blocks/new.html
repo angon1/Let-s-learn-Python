@@ -2,57 +2,73 @@
 
 {% block content %}
 <script type="text/javascript" >
+localStorage.setItem("blockCount",0)
+localStorage.setItem("setCount",0)
 
-
-    let addBlock = () =>
+let saveAll = (url) =>
     {
-        let block_root = window.document.getElementById("blockRoot")
-        let block_node = window.document.getElementById("block").cloneNode(true)
-        block_node.classList.add("post-form")
-        block_node.setAttribute('style', 'display:block')
-        block_root.append(block_node)
+        localStorage.removeItem("blockCount")
+        localStorage.removeItem("setCount")
+        document.getElementById("blockForm").submit()
+    }
+    let addBlock = (url) =>
+    {
+        let blockCount = localStorage.getItem("blockCount")
+        blockCount++
+        localStorage.setItem("blockCount",blockCount)
+        const Http = new XMLHttpRequest();
+        let new_div = document.createElement("div")
+        new_div.classList.add("post-form")
+        new_div.classList.add("blockForm")
+        new_div.setAttribute("href", url)
+        new_div.setAttribute("id", `blockSubForm-${blockCount}` )
+        let block_root = window.document.getElementById("allSets")
+        console.log(url)
+        Http.open("GET", url);
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            console.log(Http.responseText)
+            new_div.innerHTML=Http.responseText
+        }
+        block_root.append(new_div)
     }
 
-    $(function() { // shortcut for onDocumentReady
 
-        // When you click an "a" tag who is child of an item with class "subcategory_list"…
-        $('.addNewSet>a').click(function() {
+    let addSet = (url) =>
+    {
+        const Http = new XMLHttpRequest();
+        let new_div = document.createElement("div")
+        new_div.classList.add("post-form")
+        new_div.classList.add("blockForm")
+        new_div.setAttribute("href", url)
+        new_div.setAttribute("id", "setForm")
+        let block_root = window.document.getElementById("allSets")
+        console.log(url)
+        Http.open("GET", url);
+        Http.send();
 
-            var href = $(this).attr('href');
+        Http.onreadystatechange = (e) => {
+            console.log(Http.responseText)
+            new_div.innerHTML=Http.responseText
+        }
+        block_root.append(new_div)
 
-            // Use this if you want to add a loading gif or something similar
-            // $('#subcategory_detail').html(my_cool_loading_gif_html)
-
-            $.get(href, {
-                success: function(response) {
-                    // If the ajax call is successful, take the response and inject in div with id "subcategory_detail"
-                    $('#setForm').html(response)
-                },
-                error: function(response) {
-                    // Handle ajax errors here
-                }
-            })
-            return false;
-        });
-
-    });
+    }
 </script>
+
+
+
 <div id="blockRoot">
     <h2>Dodaj sety do bloku</h2>
-    <form id="block" method="POST" action="{% url 'excercise_blocks_create' %}" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Zapisz blok</button>
+    <form id="blockForm" method="POST" action="{% url 'excercise_blocks_create' %}" class="post-form">{% csrf_token %}
+        {{ dupa }}
+        {{form.as_p}}
+        <div id="allSets"></div>
+        <div id="addBlock" onclick="addBlock('{% url 'excercise_blocks_newForm' %}')">+dodaj kolejny set</div>
+        <div class="addNewSet" onclick="addSet('{% url 'excercise_sets_newForm' %}')"> +dodaj nowy set</div>
+        <button type="button" onclick="saveAll('{% url 'excercise_sets_create' %}')" class="save btn btn-default">Zapisz blok</button>
     </form>
-    <div id="blockcreate" onclick="addBlock()">
-        +dodaj kolejny blok
-    </div>
-    <div class="addNewSet">
-        <a href="{% url 'excercise_sets_newForm' %}">+dodaj nowy set</a>
-    </div>
-
-
-    <div class="col-md-9" id="setForm">
-        {% include '../excercise_sets/form.html' %}
-    </div>
 </div>
+
 {% endblock %}
