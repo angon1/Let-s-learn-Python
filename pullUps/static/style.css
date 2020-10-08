@@ -117,8 +117,45 @@ body {display: flex; flex-direction: column;}
     background-color:   rgb(54, 113, 202);
 }
 
+.post-form
+{
+    margin: 10px;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.setSelect
+{
+
+}
 
 .addNewSet
 {
     display: flex;
+}
+
+
+.setSelect div {
+   position: relative;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding: 5px 10px;
+
+}
+
+.setSelect select {
+  display: none;
+  background: #ccc;
+  border: none;
+  padding: 5px;
+}
+.setSelect select:focus {
+  outline: none;
+}
+
+.fa-sort-desc {
+  position: absolute;
+  top: 0;
+  right: 7px;
+  font-size: 24px;
 }
