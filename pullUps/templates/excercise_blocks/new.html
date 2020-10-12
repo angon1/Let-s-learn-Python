@@ -45,7 +45,7 @@
         new_div.setAttribute("id", `blockSubForm-${blockCount}` )
         let block_root = window.document.getElementById("allSets")
         new_div.innerHTML = await requestForm(url)
-        setTimeout(editSetSelect, 500)
+        setTimeout(editSetSelect, 1)
         block_root.append(new_div)
     }
 
