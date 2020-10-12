@@ -2,20 +2,36 @@
 
 {% block content %}
 <script type="text/javascript" >
-    localStorage.setItem("blockCount",0)
-    localStorage.setItem("setCount",0)
+    localStorage.setItem("existingSetCount",0)
+    localStorage.setItem("newSetCount",0)
+
+    let increaseExistingSetCount = () =>
+    {
+        let existingSetCount = localStorage.getItem("existingSetCount")
+        existingSetCount++
+        localStorage.setItem("existingSetCount",existingSetCount)
+        return existingSetCount
+    }
+
+    let increaseNewSetCount = () =>
+    {
+        let newSetCount = localStorage.getItem("newSetCount")
+        newSetCount++
+        localStorage.setItem("newSetCount",newSetCount)
+        return newSetCount
+    }
 
     let saveAll = (url) =>
     {
-        localStorage.removeItem("blockCount")
-        localStorage.removeItem("setCount")
+        localStorage.removeItem("existingSetCount")
+        localStorage.removeItem("newSetCount")
         document.getElementById("blockForm").submit()
     }
 
     let editSetSelect = () =>
     {
-        let blockCount = localStorage.getItem("blockCount")
-        let selectDiv = window.document.getElementById(`blockSubForm-${blockCount}`)
+        let existingSetCount = localStorage.getItem("existingSetCount")
+        let selectDiv = window.document.getElementById(`blockSubForm-${existingSetCount}`)
         let divChildNodes = selectDiv.children
         for (const node of divChildNodes) {
             console.log("node = " , node)
@@ -31,18 +47,16 @@
 
     let requestForm = async (url) =>
     {
-        return fetch(url).then(response => response.text())
+        return await fetch(url).then(response => response.text())
     }
 
     let addExistingSet = async (url) =>
     {
-        let blockCount = localStorage.getItem("blockCount")
-        blockCount++
-        localStorage.setItem("blockCount",blockCount)
+        let existingSetCount = increaseExistingSetCount()
         let new_div = document.createElement("div")
         new_div.classList.add("post-form")
         new_div.setAttribute("href", url)
-        new_div.setAttribute("id", `blockSubForm-${blockCount}` )
+        new_div.setAttribute("id", `blockSubForm-${existingSetCount}` )
         let block_root = window.document.getElementById("allSets")
         new_div.innerHTML = await requestForm(url)
         setTimeout(editSetSelect, 1)
@@ -50,22 +64,18 @@
     }
 
 
-    let createSet = (url) =>
+
+    let createSet = async (url) =>
     {
-        const Http = new XMLHttpRequest();
+        let newSetCount = increaseNewSetCount()
         let new_div = document.createElement("div")
         new_div.classList.add("post-form")
         new_div.setAttribute("href", url)
-        new_div.setAttribute("id", "setForm")
+        new_div.setAttribute("id", `setCreateSubForm-${newSetCount}`)
         let block_root = window.document.getElementById("allSets")
         console.log(url)
-        Http.open("GET", url);
-        Http.send();
+        new_div.innerHTML = await requestForm(url)
 
-        Http.onreadystatechange = (e) => {
-            console.log(Http.responseText)
-            new_div.innerHTML=Http.responseText
-        }
         block_root.append(new_div)
 
     }

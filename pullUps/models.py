@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 class Excercise(models.Model):
@@ -22,12 +23,18 @@ class ExcerciseSet(models.Model):
     def __str__(self):
         return 'Used excercise:  {} reps:  {} break after set: {}'.format(self.usedExcercise, self.repsCount, self.breakTimeAfterSet)
 
+
+
 class ExcerciseBlock(models.Model):
     breakTimeAfterBlock = models.IntegerField()
     usedExcerciseSets = models.ManyToManyField(ExcerciseSet)
 
     def __str__(self):
         return ' break after block: {}\nsets count: {}'.format(self.breakTimeAfterBlock, self.usedExcerciseSets.count())
+
+# class ExcerciseBlockSets(models.Model):
+#     setKey = models.ForeignKey(ExcerciseSet, on_delete=models.PROTECT)
+#     blockKey = models.ForeignKey(ExcerciseBlock, on_delete=models.PROTECT)
 
 class Training(models.Model):
     blocks = models.ManyToManyField(ExcerciseBlock, unique=False)
