@@ -27,14 +27,15 @@ class ExcerciseSet(models.Model):
 
 class ExcerciseBlock(models.Model):
     breakTimeAfterBlock = models.IntegerField()
-    usedExcerciseSets = models.ManyToManyField(ExcerciseSet)
+    usedExcerciseSets = models.ManyToManyField(ExcerciseSet, through='ExcerciseBlockSets')
 
     def __str__(self):
         return ' break after block: {}\nsets count: {}'.format(self.breakTimeAfterBlock, self.usedExcerciseSets.count())
 
-# class ExcerciseBlockSets(models.Model):
-#     setKey = models.ForeignKey(ExcerciseSet, on_delete=models.PROTECT)
-#     blockKey = models.ForeignKey(ExcerciseBlock, on_delete=models.PROTECT)
+class ExcerciseBlockSets(models.Model):
+    blockKey = models.ForeignKey(ExcerciseBlock, on_delete=models.PROTECT)
+    setKey = models.ForeignKey(ExcerciseSet, on_delete=models.PROTECT)
+
 
 class Training(models.Model):
     blocks = models.ManyToManyField(ExcerciseBlock, unique=False)

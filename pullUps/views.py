@@ -263,9 +263,14 @@ def excercise_blocks_create(request):
     form  = InputExcerciseBlockForm(request.POST)
     print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
     if form.is_valid():
+        print('\n\n dobrzedobrzedobrze\n\n')
+        usedBlocksList = request.POST.getlist("usedExcerciseSets")
+        form.usedExcerciseSets = usedBlocksList
+        print ('form =  {}  \n '.format(form))
         excercise_blocks = form.save().save()
         return redirect('excercise_blocks_list')
     else:
+        print('\n\ndupadupadupa\n\n')
         return render(request, 'excercise_blocks/new.html', {'form': form})
 
 def excercise_blocks_show(request, pk):
