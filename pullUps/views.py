@@ -3,7 +3,7 @@ from rest_framework import generics
 from django.views.generic import *
 from pullUps.serializers import *
 from django.http import JsonResponse
-from pullUps.models import Excercise, Training, ExcerciseSet, ExcerciseBlock
+from pullUps.models import Excercise, Training, ExcerciseSet, ExcerciseBlock, ExcerciseBlockSets
 from .forms import InputExcerciseForm, InputExcerciseSetForm, InputExcerciseBlockForm, InputTrainingForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -261,16 +261,14 @@ def excercise_blocks_newForm(request):
 
 def excercise_blocks_create(request):
     form  = InputExcerciseBlockForm(request.POST)
-    print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
     if form.is_valid():
-        print('\n\n dobrzedobrzedobrze\n\n')
         usedBlocksList = request.POST.getlist("usedExcerciseSets")
-        form.usedExcerciseSets = usedBlocksList
-        print ('form =  {}  \n '.format(form))
-        excercise_blocks = form.save().save()
+        excercise_block = ExcerciseBlock.objects.create(breakTimeAfterBlock=request.POST.get("breakTimeAfterBlock"))
+        for uSet in usedBlocksList:
+            ExcerciseBlockSets(blockKey=excercise_block, setKey=ExcerciseSet.objects.get(id=uSet)).save()
+        excercise_block.save()
         return redirect('excercise_blocks_list')
     else:
-        print('\n\ndupadupadupa\n\n')
         return render(request, 'excercise_blocks/new.html', {'form': form})
 
 def excercise_blocks_show(request, pk):

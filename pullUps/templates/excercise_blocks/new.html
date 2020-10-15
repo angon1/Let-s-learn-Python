@@ -50,16 +50,29 @@
         return await fetch(url).then(response => response.text())
     }
 
+    let removeSubForm = (myId) =>
+    {
+        console.log("lala",myId)
+        let selectDiv = window.document.getElementById(myId)
+        selectDiv.remove()
+        console.log(myId)
+    }
     let addExistingSet = async (url) =>
     {
         let existingSetCount = increaseExistingSetCount()
         let new_div = document.createElement("div")
         new_div.classList.add("post-form")
         new_div.setAttribute("href", url)
-        new_div.setAttribute("id", `blockSubForm-${existingSetCount}` )
+        let myId = `blockSubForm-${existingSetCount}`
+        new_div.setAttribute("id", myId )
         let block_root = window.document.getElementById("allSets")
         new_div.innerHTML = await requestForm(url)
         setTimeout(editSetSelect, 1)
+        let usuwajka = document.createElement("div")
+        usuwajka.classList.add("blockForm")
+        console.log(myId)
+        usuwajka.setAttribute("onClick", `removeSubForm('${myId}')`)
+        new_div.append(usuwajka)
         block_root.append(new_div)
     }
 
@@ -90,9 +103,9 @@
         {{ form.breakTimeAfterBlock}} <br />
 
         <div id="allSets"></div>
-        <div id="addExistingSet" onclick="addExistingSet('{% url 'excercise_blocks_newForm' %}')">+dodaj set</div>
-        <div onclick="createSet('{% url 'excercise_sets_newForm' %}')"> +stwórz nowy set</div>
-        <button type="button" onclick="saveAll('{% url 'excercise_sets_create' %}')" class="save btn btn-default">Zapisz blok</button>
+        <div id="addExistingSet" onClick="addExistingSet('{% url 'excercise_blocks_newForm' %}')">+dodaj set</div>
+        <div onClick="createSet('{% url 'excercise_sets_newForm' %}')"> +stwórz nowy set</div>
+        <button type="button" onClick="saveAll('{% url 'excercise_sets_create' %}')" class="save btn btn-default">Zapisz blok</button>
     </form>
 </div>
 
