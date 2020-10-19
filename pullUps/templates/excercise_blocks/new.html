@@ -2,36 +2,26 @@
 
 {% block content %}
 <script type="text/javascript" >
-    localStorage.setItem("existingSetCount",0)
-    localStorage.setItem("newSetCount",0)
+    localStorage.setItem("setFormCount",0)
 
-    let increaseExistingSetCount = () =>
+    let increaseSetFormCount = () =>
     {
-        let existingSetCount = localStorage.getItem("existingSetCount")
-        existingSetCount++
-        localStorage.setItem("existingSetCount",existingSetCount)
-        return existingSetCount
-    }
-
-    let increaseNewSetCount = () =>
-    {
-        let newSetCount = localStorage.getItem("newSetCount")
-        newSetCount++
-        localStorage.setItem("newSetCount",newSetCount)
-        return newSetCount
+        let setFormCount = localStorage.getItem("setFormCount")
+        setFormCount++
+        localStorage.setItem("setFormCount",setFormCount)
+        return setFormCount
     }
 
     let saveAll = (url) =>
     {
-        localStorage.removeItem("existingSetCount")
-        localStorage.removeItem("newSetCount")
+        localStorage.removeItem("setFormCount")
         document.getElementById("blockForm").submit()
     }
 
     let editSetSelect = () =>
     {
-        let existingSetCount = localStorage.getItem("existingSetCount")
-        let selectDiv = window.document.getElementById(`blockSubForm-${existingSetCount}`)
+        let setFormCount = localStorage.getItem("setFormCount")
+        let selectDiv = window.document.getElementById(`blockSubForm-${setFormCount}`)
         let divChildNodes = selectDiv.children
         for (const node of divChildNodes) {
             console.log("node = " , node)
@@ -57,41 +47,36 @@
         selectDiv.remove()
         console.log(myId)
     }
-    let addExistingSet = async (url) =>
+
+    let divFormCreator = async (myId, url) =>
     {
-        let existingSetCount = increaseExistingSetCount()
         let new_div = document.createElement("div")
         new_div.classList.add("post-form")
         new_div.setAttribute("href", url)
-        let myId = `blockSubForm-${existingSetCount}`
         new_div.setAttribute("id", myId )
-        let block_root = window.document.getElementById("allSets")
         new_div.innerHTML = await requestForm(url)
-        setTimeout(editSetSelect, 1)
-        let usuwajka = document.createElement("div")
-        usuwajka.classList.add("blockForm")
-        console.log(myId)
-        usuwajka.setAttribute("onClick", `removeSubForm('${myId}')`)
-        new_div.append(usuwajka)
-        block_root.append(new_div)
+        return new_div
     }
 
-
-
-    let createSet = async (url) =>
+    let removeElementDiv = (myId) =>
     {
-        let newSetCount = increaseNewSetCount()
-        let new_div = document.createElement("div")
-        new_div.classList.add("post-form")
-        new_div.setAttribute("href", url)
-        new_div.setAttribute("id", `setCreateSubForm-${newSetCount}`)
-        let block_root = window.document.getElementById("allSets")
-        console.log(url)
-        new_div.innerHTML = await requestForm(url)
-
-        block_root.append(new_div)
-
+        let removeCurrentElement = document.createElement("div")
+        removeCurrentElement.classList.add("blockForm")
+        removeCurrentElement.setAttribute("onClick", `removeSubForm('${myId}')`)
+        return removeCurrentElement
     }
+
+    let addSetForm = async (url) =>
+    {
+        let setFormCount = increaseSetFormCount()
+        let myId = `blockSubForm-${setFormCount}`
+        let block_root = window.document.getElementById("allSets")
+        let new_div = await divFormCreator(myId, url)
+        setTimeout(editSetSelect, 1)
+        new_div.append(removeElementDiv(myId))
+        block_root.append(new_div)
+    }
+
 </script>
 
 
@@ -103,8 +88,8 @@
         {{ form.breakTimeAfterBlock}} <br />
 
         <div id="allSets"></div>
-        <div id="addExistingSet" onClick="addExistingSet('{% url 'excercise_blocks_newForm' %}')">+dodaj set</div>
-        <div onClick="createSet('{% url 'excercise_sets_newForm' %}')"> +stwórz nowy set</div>
+        <div id="addSetForm" onClick="addSetForm('{% url 'excercise_blocks_newForm' %}')">+dodaj set</div>
+        <div onClick="addSetForm('{% url 'excercise_sets_newForm' %}')"> +stwórz nowy set</div>
         <button type="button" onClick="saveAll('{% url 'excercise_sets_create' %}')" class="save btn btn-default">Zapisz blok</button>
     </form>
 </div>

@@ -259,10 +259,24 @@ def excercise_blocks_newForm(request):
     form = InputExcerciseBlockForm()
     return render(request, 'excercise_blocks/form.html', {'formBlock': form})
 
+
+
 def excercise_blocks_create(request):
     form  = InputExcerciseBlockForm(request.POST)
+    print ('request.post= \n{}\n'.format(request.POST))
+
     if form.is_valid():
+
+        newSetsRepsCount = request.POST.getlist("repsCount")
+        newSetsExcercises = request.POST.getlist("usedExcercise")
+        newSetsBreakAfterSet = request.POST.getlist("breakTimeAfterSet")
+        print("\n dlugosc hehe {}\n".format(newSetsExcercises))
         usedBlocksList = request.POST.getlist("usedExcerciseSets")
+        for nSet in range(len(newSetsExcercises)):
+            newSetAdd = ExcerciseSet.objects.create(repsCount=newSetsRepsCount[nSet], usedExcercise=Excercise.objects.get(id=newSetsExcercises[nSet]), breakTimeAfterSet=newSetsBreakAfterSet[nSet])
+            usedBlocksList.append(newSetAdd.pk)
+            print("\n set nowy set set set = {}".format(newSetAdd))
+
         excercise_block = ExcerciseBlock.objects.create(breakTimeAfterBlock=request.POST.get("breakTimeAfterBlock"))
         for uSet in usedBlocksList:
             ExcerciseBlockSets(blockKey=excercise_block, setKey=ExcerciseSet.objects.get(id=uSet)).save()
