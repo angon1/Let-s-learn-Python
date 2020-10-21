@@ -270,11 +270,14 @@ def excercise_blocks_create(request):
         newSetsRepsCount = request.POST.getlist("repsCount")
         newSetsExcercises = request.POST.getlist("usedExcercise")
         newSetsBreakAfterSet = request.POST.getlist("breakTimeAfterSet")
+        newSetsSequence = request.POST.getlist("sequence")
+
         print("\n dlugosc hehe {}\n".format(newSetsExcercises))
         usedBlocksList = request.POST.getlist("usedExcerciseSets")
         for nSet in range(len(newSetsExcercises)):
+            print("\nsqeuenceNb = {} \n ".format(int(newSetsSequence[nSet])))
             newSetAdd = ExcerciseSet.objects.create(repsCount=newSetsRepsCount[nSet], usedExcercise=Excercise.objects.get(id=newSetsExcercises[nSet]), breakTimeAfterSet=newSetsBreakAfterSet[nSet])
-            usedBlocksList.append(newSetAdd.pk)
+            usedBlocksList.insert(int(newSetsSequence[nSet]),newSetAdd.pk)
             print("\n set nowy set set set = {}".format(newSetAdd))
 
         excercise_block = ExcerciseBlock.objects.create(breakTimeAfterBlock=request.POST.get("breakTimeAfterBlock"))

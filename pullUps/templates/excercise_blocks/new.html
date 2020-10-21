@@ -58,7 +58,7 @@
         return new_div
     }
 
-    let removeElementDiv = (myId) =>
+    let removeElementButton = (myId) =>
     {
         let removeCurrentElement = document.createElement("div")
         removeCurrentElement.classList.add("blockForm")
@@ -66,14 +66,32 @@
         return removeCurrentElement
     }
 
-    let addSetForm = async (url) =>
+    let addSequenceNumber = () =>
+    {
+        let new_div = document.createElement("input")
+        // new_div.classList.add("post-form")
+        new_div.setAttribute("type", "hidden" )
+        new_div.setAttribute("name", "sequence" )
+        new_div.setAttribute("value",  localStorage.getItem("setFormCount")-1)
+        return new_div
+    }
+
+    let addSetForm = async (url, isNew) =>
     {
         let setFormCount = increaseSetFormCount()
         let myId = `blockSubForm-${setFormCount}`
         let block_root = window.document.getElementById("allSets")
         let new_div = await divFormCreator(myId, url)
         setTimeout(editSetSelect, 1)
-        new_div.append(removeElementDiv(myId))
+        new_div.append(removeElementButton(myId))
+        if(true==isNew)
+        {
+            console.log("tak tak tak")
+            new_div.append(addSequenceNumber())
+        }else
+        {
+            console.log("nie nie nie")
+        }
         block_root.append(new_div)
     }
 
@@ -88,8 +106,8 @@
         {{ form.breakTimeAfterBlock}} <br />
 
         <div id="allSets"></div>
-        <div id="addSetForm" onClick="addSetForm('{% url 'excercise_blocks_newForm' %}')">+dodaj set</div>
-        <div onClick="addSetForm('{% url 'excercise_sets_newForm' %}')"> +stwórz nowy set</div>
+        <div id="addSetForm" onClick="addSetForm('{% url 'excercise_blocks_newForm' %}',false)">+dodaj set</div>
+        <div onClick="addSetForm('{% url 'excercise_sets_newForm' %}', true)"> +stwórz nowy set</div>
         <button type="button" onClick="saveAll('{% url 'excercise_sets_create' %}')" class="save btn btn-default">Zapisz blok</button>
     </form>
 </div>
