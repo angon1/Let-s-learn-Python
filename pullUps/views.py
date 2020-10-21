@@ -3,7 +3,7 @@ from rest_framework import generics
 from django.views.generic import *
 from pullUps.serializers import *
 from django.http import JsonResponse
-from pullUps.models import Excercise, Training, ExcerciseSet, ExcerciseBlock, ExcerciseBlockSets
+from .models import Excercise, Training, ExcerciseSet, ExcerciseBlock, ExcerciseBlockSets
 from .forms import InputExcerciseForm, InputExcerciseSetForm, InputExcerciseBlockForm, InputTrainingForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -260,30 +260,34 @@ def excercise_blocks_newForm(request):
     return render(request, 'excercise_blocks/form.html', {'formBlock': form})
 
 
+def excercise_block_add_to_base(breakTimeAfterBlock, usedBlocksList):
+    excercise_block = ExcerciseBlock.objects.create(breakTimeAfterBlock=breakTimeAfterBlock)
+    for uSet in usedBlocksList:
+        ExcerciseBlockSets(blockKey=excercise_block, setKey=ExcerciseSet.objects.get(id=uSet)).save()
+    excercise_block.save()
+
+def excercise_blocks_handle(data):
+    newSetsRepsCount = data.getlist("repsCount")
+    newSetsExcercises = data.getlist("usedExcercise")
+    newSetsBreakAfterSet = data.getlist("breakTimeAfterSet")
+    newSetsSequence = data.getlist("sequence")
+
+    print("\n dlugosc hehe {}\n".format(newSetsExcercises))
+    usedBlocksList = data.getlist("usedExcerciseSets")
+    for nSet in range(len(newSetsExcercises)):
+        print("\nsqeuenceNb = {} \n ".format(int(newSetsSequence[nSet])))
+        newSetAdd = ExcerciseSet.objects.create(repsCount=newSetsRepsCount[nSet], usedExcercise=Excercise.objects.get(id=newSetsExcercises[nSet]), breakTimeAfterSet=newSetsBreakAfterSet[nSet])
+        usedBlocksList.insert(int(newSetsSequence[nSet]),newSetAdd.pk)
+        print("\n set nowy set set set = {}".format(newSetAdd))
+    excercise_block_add_to_base(data.get("breakTimeAfterBlock"), usedBlocksList)
+
 
 def excercise_blocks_create(request):
     form  = InputExcerciseBlockForm(request.POST)
     print ('request.post= \n{}\n'.format(request.POST))
 
     if form.is_valid():
-
-        newSetsRepsCount = request.POST.getlist("repsCount")
-        newSetsExcercises = request.POST.getlist("usedExcercise")
-        newSetsBreakAfterSet = request.POST.getlist("breakTimeAfterSet")
-        newSetsSequence = request.POST.getlist("sequence")
-
-        print("\n dlugosc hehe {}\n".format(newSetsExcercises))
-        usedBlocksList = request.POST.getlist("usedExcerciseSets")
-        for nSet in range(len(newSetsExcercises)):
-            print("\nsqeuenceNb = {} \n ".format(int(newSetsSequence[nSet])))
-            newSetAdd = ExcerciseSet.objects.create(repsCount=newSetsRepsCount[nSet], usedExcercise=Excercise.objects.get(id=newSetsExcercises[nSet]), breakTimeAfterSet=newSetsBreakAfterSet[nSet])
-            usedBlocksList.insert(int(newSetsSequence[nSet]),newSetAdd.pk)
-            print("\n set nowy set set set = {}".format(newSetAdd))
-
-        excercise_block = ExcerciseBlock.objects.create(breakTimeAfterBlock=request.POST.get("breakTimeAfterBlock"))
-        for uSet in usedBlocksList:
-            ExcerciseBlockSets(blockKey=excercise_block, setKey=ExcerciseSet.objects.get(id=uSet)).save()
-        excercise_block.save()
+        excercise_blocks_handle(request.POST)
         return redirect('excercise_blocks_list')
     else:
         return render(request, 'excercise_blocks/new.html', {'form': form})
