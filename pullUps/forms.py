@@ -10,12 +10,6 @@ class InputTrainingForm(forms.ModelForm):
             'blocks': 'Bloki',
         }
 
-class InputExcerciseForm(forms.ModelForm):
-    class Meta:
-        model = Excercise
-        fields = ('name',)
-
-
 class InputExcerciseSetForm(forms.ModelForm):
     class Meta:
         model = ExcerciseSet

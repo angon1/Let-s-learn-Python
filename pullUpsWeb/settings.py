@@ -137,6 +137,7 @@ USE_TZ = True
 
 STATIC_URL = '/pullUps/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'pullUps/static/')
+# PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'pullUps/static'),
