@@ -101,14 +101,14 @@
 
 <div id="blockRoot">
     <h2>Dodaj sety do bloku</h2>
-    <form id="blockForm" method="POST" action="{% url 'excercise_blocks_create' %}" class="post-form">{% csrf_token %}
+    <form id="blockForm" method="POST" action="{% url 'excercise_block_create' %}" class="post-form">{% csrf_token %}
         Przerwa po bloku: <br />
         {{ form.breakTimeAfterBlock}} <br />
 
         <div id="allSets"></div>
-        <div id="addSetForm" onClick="addSetForm('{% url 'excercise_blocks_newForm' %}',false)">+dodaj set</div>
-        <div onClick="addSetForm('{% url 'excercise_sets_newForm' %}', true)"> +stwórz nowy set</div>
-        <button type="button" onClick="saveAll('{% url 'excercise_sets_create' %}')" class="save btn btn-default">Zapisz blok</button>
+        <div id="addSetForm" onClick="addSetForm('{% url 'excercise_block_newForm' %}',false)">+dodaj set</div>
+        <div onClick="addSetForm('{% url 'excercise_set_newForm' %}', true)"> +stwórz nowy set</div>
+        <button type="button" onClick="saveAll('{% url 'excercise_set_create' %}')" class="save btn btn-default">Zapisz blok</button>
     </form>
 </div>
 

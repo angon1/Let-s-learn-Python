@@ -5,10 +5,10 @@ from pullUps.serializers import *
 from django.http import JsonResponse
 from .models import Excercise, Training, ExcerciseSet, ExcerciseBlock, ExcerciseBlockSets
 from .forms import InputExcerciseSetForm, InputExcerciseBlockForm, InputTrainingForm
-from pullUps.excercises.forms import InputExcerciseForm
+from pullUps.excercise.forms import InputExcerciseForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from pullUps.excercises.views import *
+from pullUps.excercise.views import *
 
 # Create your views here.
 
@@ -36,12 +36,12 @@ def main_page(request):
 
 def training_list(request):
     trainingList = Training.objects.all()
-    return render(request, 'trainings/index.html', {"showAll": trainingList})
+    return render(request, 'training/index.html', {"showAll": trainingList})
 
 
 def training_new(request):
     form = InputTrainingForm()
-    return render(request, 'trainings/new.html', {'form': form})
+    return render(request, 'training/new.html', {'form': form})
 
 def training_create(request):
     form = InputTrainingForm(request.POST)
@@ -56,20 +56,20 @@ def training_create(request):
         print(form)
         print("errors:\n")
         print(form.errors)
-        return render(request, 'trainings/new.html', {'form': form})
+        return render(request, 'training/new.html', {'form': form})
 
 def training_show(request, pk):
     training = Training.objects.get(pk=pk)
     print(training)
     print(training.name)
     print(training.blocks)
-    return render(request, 'trainings/show.html', {"training_show": training})
+    return render(request, 'training/show.html', {"training_show": training})
 
 def training_edit(request, pk):
     training = get_object_or_404(Training, pk=pk)
     print(training)
     form  = InputTrainingForm(instance=training)
-    return render(request, 'trainings/edit.html', {'form': form, 'training': training})
+    return render(request, 'training/edit.html', {'form': form, 'training': training})
 
 def training_update(request, pk):
     oldTraining = get_object_or_404(Training, pk=pk)
@@ -79,7 +79,7 @@ def training_update(request, pk):
         newTraining.save()
         return redirect('training_list')
     else:
-        return render(request, 'trainings/edit.html', {'form': form, 'training_update': oldTraining})
+        return render(request, 'training/edit.html', {'form': form, 'training_update': oldTraining})
 
 def training_delete(request, pk):
     training = get_object_or_404(Training, pk=pk)
@@ -100,40 +100,40 @@ class TrainingView(APIView):
         serializedTraining = TrainingSerializer(training)
         return Response(serializedTraining.data)
 
-def excercise_sets_list(request):
+def excercise_set_list(request):
     excercise_sets = ExcerciseSet.objects.all()
-    return render(request, 'excercise_sets/index.html', {"showAll": excercise_sets})
+    return render(request, 'excercise_set/index.html', {"showAll": excercise_sets})
 
 
-def excercise_sets_new(request):
+def excercise_set_new(request):
     form = InputExcerciseSetForm()
-    return render(request, 'excercise_sets/new.html', {'form': form})
+    return render(request, 'excercise_set/new.html', {'form': form})
 
-def excercise_sets_newForm(request):
+def excercise_set_newForm(request):
     print(request)
     form = InputExcerciseSetForm()
-    return render(request, 'excercise_sets/form.html', {'formSet': form})
+    return render(request, 'excercise_set/form.html', {'formSet': form})
 
-def excercise_sets_create(request):
+def excercise_set_create(request):
     form  = InputExcerciseSetForm(request.POST)
     print ('form =  {}  \n request = {} \n request.post= {}'.format(form, request, request.POST))
     if form.is_valid():
         excercise_sets = form.save(commit=False)
         excercise_sets.save()
-        return redirect('excercise_sets_list')
+        return redirect('excercise_set_list')
     else:
-        return render(request, 'excercise_sets/new.html', {'form': form})
+        return render(request, 'excercise_set/new.html', {'form': form})
 
-def excercise_sets_show(request, pk):
+def excercise_set_show(request, pk):
     excercise_sets = ExcerciseSet.objects.get(pk=pk)
-    return render(request, 'excercise_sets/show.html', {"excercise_sets_show": excercise_sets_show})
+    return render(request, 'excercise_set/show.html', {"excercise_set_show": excercise_set_show})
 
-def excercise_sets_edit(request, pk):
+def excercise_set_edit(request, pk):
     excercise_set = get_object_or_404(ExcerciseSet, pk=pk)
     form  = InputExcerciseSetForm(instance=excercise_set)
-    return render(request, 'excercise_sets/edit.html', {'form': form, 'excercise_set': excercise_set})
+    return render(request, 'excercise_set/edit.html', {'form': form, 'excercise_set': excercise_set})
 
-def excercise_sets_update(request, pk):
+def excercise_set_update(request, pk):
     oldExcerciseSet = get_object_or_404(ExcerciseSet, pk=pk)
     form  = InputExcerciseSetForm(request.POST, instance=oldExcerciseSet)
     if form.is_valid():
@@ -141,13 +141,13 @@ def excercise_sets_update(request, pk):
         newExcerciseSet.save()
         return redirect('excercise_list')
     else:
-        return render(request, 'excercise_sets/edit.html', {'form': form, 'excercise_sets_update': oldExcerciseSet})
+        return render(request, 'excercise_set/edit.html', {'form': form, 'excercise_set_update': oldExcerciseSet})
 
-def excercise_sets_delete(request, pk):
+def excercise_set_delete(request, pk):
     excercise_sets = get_object_or_404(ExcerciseSet, pk=pk)
     print(excercise_sets)
     excercise_sets.delete()
-    return redirect('excercise_sets_list')
+    return redirect('excercise_set_list')
 
 class ExcerciseSetView(APIView):
     """
@@ -163,19 +163,19 @@ class ExcerciseSetView(APIView):
         return Response(serializedExcerciseSet.data)
 
 
-def excercise_blocks_list(request):
+def excercise_block_list(request):
     excercise_blocks = ExcerciseBlock.objects.all()
-    return render(request, 'excercise_blocks/index.html', {"showAll": excercise_blocks})
+    return render(request, 'excercise_block/index.html', {"showAll": excercise_blocks})
 
 
-def excercise_blocks_new(request):
+def excercise_block_new(request):
     form = InputExcerciseBlockForm()
-    return render(request, 'excercise_blocks/new.html', {'form': form})
+    return render(request, 'excercise_block/new.html', {'form': form})
 
-def excercise_blocks_newForm(request):
+def excercise_block_newForm(request):
     print(request)
     form = InputExcerciseBlockForm()
-    return render(request, 'excercise_blocks/form.html', {'formBlock': form})
+    return render(request, 'excercise_block/form.html', {'formBlock': form})
 
 
 def excercise_block_add_to_base(breakTimeAfterBlock, usedBlocksList):
@@ -184,7 +184,7 @@ def excercise_block_add_to_base(breakTimeAfterBlock, usedBlocksList):
         ExcerciseBlockSets(blockKey=excercise_block, setKey=ExcerciseSet.objects.get(id=uSet)).save()
     excercise_block.save()
 
-def excercise_blocks_handle(data):
+def excercise_block_handle(data):
     newSetsRepsCount = data.getlist("repsCount")
     newSetsExcercises = data.getlist("usedExcercise")
     newSetsBreakAfterSet = data.getlist("breakTimeAfterSet")
@@ -200,46 +200,46 @@ def excercise_blocks_handle(data):
     excercise_block_add_to_base(data.get("breakTimeAfterBlock"), usedBlocksList)
 
 
-def excercise_blocks_create(request):
+def excercise_block_create(request):
     form  = InputExcerciseBlockForm(request.POST)
     print ('request.post= \n{}\n'.format(request.POST))
 
     if form.is_valid():
-        excercise_blocks_handle(request.POST)
-        return redirect('excercise_blocks_list')
+        excercise_block_handle(request.POST)
+        return redirect('excercise_block_list')
     else:
-        return render(request, 'excercise_blocks/new.html', {'form': form})
+        return render(request, 'excercise_block/new.html', {'form': form})
 
-def excercise_blocks_show(request, pk):
+def excercise_block_show(request, pk):
     excercise_block = ExcerciseBlock.objects.get(pk=pk)
     print(excercise_block)
     print(excercise_block.breakTimeAfterBlock)
     print(excercise_block.usedExcerciseSets)
-    return render(request, 'excercise_blocks/show.html', {"excercise_blocks_show": excercise_block})
+    return render(request, 'excercise_block/show.html', {"excercise_block_show": excercise_block})
 
-def excercise_blocks_edit(request, pk):
+def excercise_block_edit(request, pk):
     excercise_block = get_object_or_404(ExcerciseBlock, pk=pk)
     print(excercise_block)
     print(excercise_block.breakTimeAfterBlock)
     print(excercise_block.usedExcerciseSets.all())
     form  = InputExcerciseBlockForm(instance=excercise_block)
-    return render(request, 'excercise_blocks/edit.html', {'form': form, 'excercise_block': excercise_block})
+    return render(request, 'excercise_block/edit.html', {'form': form, 'excercise_block': excercise_block})
 
-def excercise_blocks_update(request, pk):
+def excercise_block_update(request, pk):
     oldExcerciseBlock = get_object_or_404(ExcerciseBlock, pk=pk)
     form  = InputExcerciseBlockForm(request.POST, instance=oldExcerciseBlock)
     if form.is_valid():
         newExcerciseBlock = form.save(commit=False)
         newExcerciseBlock.save()
-        return redirect('excercise_blocks_list')
+        return redirect('excercise_block_list')
     else:
-        return render(request, 'excercise_blocks/edit.html', {'form': form, 'excercise_blocks_update': oldExcerciseBlock})
+        return render(request, 'excercise_block/edit.html', {'form': form, 'excercise_block_update': oldExcerciseBlock})
 
-def excercise_blocks_delete(request, pk):
+def excercise_block_delete(request, pk):
     excercise_blocks = get_object_or_404(ExcerciseBlock, pk=pk)
     print(excercise_blocks)
     excercise_blocks.delete()
-    return redirect('excercise_blocks_list')
+    return redirect('excercise_block_list')
 
 class ExcerciseBlockView(APIView):
     """

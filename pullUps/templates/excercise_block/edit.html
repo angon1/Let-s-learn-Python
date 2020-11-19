@@ -4,7 +4,7 @@
     <br>
     <br>
     <h2>Edytuj blok</h2>
-    <form method="POST" action="{% url 'excercise_blocks_edit' pk=excercise_block.pk %}" class="post-form">{% csrf_token %}
+    <form method="POST" action="{% url 'excercise_block_edit' pk=excercise_block.pk %}" class="post-form">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="save btn btn-default">Save</button>
 {% endblock %}

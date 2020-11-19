@@ -34,7 +34,7 @@
     </div>
         <div>
             <h2>Czy chcesz dodać kolejny blok?</h2>
-            <form id="blockAdd" style="display: hide;" method="POST" action="{% url 'excercise_blocks_new' %}" >{% csrf_token %}
+            <form id="blockAdd" style="display: hide;" method="POST" action="{% url 'excercise_block_new' %}" >{% csrf_token %}
             </form>
 
                 <div id="blockcreate" onclick="addBlock()">

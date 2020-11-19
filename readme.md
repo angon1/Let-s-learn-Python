@@ -135,3 +135,16 @@ git push heroku master
 heroku logs --tail
 heroku local
 heroku run python manage.py migrate
+
+
+
+
+Pytania do Piotrka:
+- struktura katalogów z templatami
+- Users:
+  -> views.py
+  -> forsm.py
+  modules:
+    -> pliki z funkcjami
+
+Podpytać o pytest i inne framworki testowe

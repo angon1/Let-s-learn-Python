@@ -6,19 +6,19 @@
         {{ excercise_blocks }} <br>
             <div class= "linksList">
                 <div class = "link">
-                    <a href="{% url 'excercise_blocks_show' pk=excercise_blocks.pk %}">show </a>
+                    <a href="{% url 'excercise_block_show' pk=excercise_blocks.pk %}">show </a>
                 </div>
                 <div class = "link">
-                    <a href="{% url 'excercise_blocks_edit' pk=excercise_blocks.pk %}">edit</a>
+                    <a href="{% url 'excercise_block_edit' pk=excercise_blocks.pk %}">edit</a>
                 </div>
                 <div class = "link">
-                    <a href="{% url 'excercise_blocks_delete' pk=excercise_blocks.pk %}">delete</a>
+                    <a href="{% url 'excercise_block_delete' pk=excercise_blocks.pk %}">delete</a>
                 </div>
                 <div class = "link">
-                    <a href="{% url 'excercise_blocks_serialize' pk=excercise_blocks.pk %}">serialize</a>
+                    <a href="{% url 'excercise_block_serialize' pk=excercise_blocks.pk %}">serialize</a>
                 </div>
             </div>
         {% endfor %}<br>
-        <a href="{% url 'excercise_blocks_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus" > nowy </span></a><br>
+        <a href="{% url 'excercise_block_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus" > nowy </span></a><br>
     </div>
     {% endblock %}

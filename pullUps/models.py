@@ -1,5 +1,5 @@
 from django.db import models
-from pullUps.excercises.models import *
+from pullUps.excercise.models import *
 
 # Create your models here.
 

@@ -3,7 +3,7 @@ from rest_framework import generics
 from django.views.generic import *
 from pullUps.serializers import *
 from django.http import JsonResponse
-from pullUps.excercises.models import Excercise
+from pullUps.excercise.models import Excercise
 from .forms import InputExcerciseForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,11 +11,11 @@ from rest_framework.views import APIView
 
 def excercise_list(request):
     excerciseList = Excercise.objects.all()
-    return render(request, 'excercises/index.html', {"showAll": excerciseList})
+    return render(request, 'excercise/index.html', {"showAll": excerciseList})
 
 def excercise_show(request, pk):
     excercise = Excercise.objects.get(pk=pk)
-    return render(request, 'excercises/show.html', {"excercise_show": excercise})
+    return render(request, 'excercise/show.html', {"excercise_show": excercise})
 
 
 
@@ -25,7 +25,7 @@ def excercise_show(request, pk):
 
 def excercise_new(request):
     form = InputExcerciseForm()
-    return render(request, 'excercises/new.html', {'form': form})
+    return render(request, 'excercise/new.html', {'form': form})
 
 def excercise_create(request):
     form  = InputExcerciseForm(request.POST)
@@ -35,15 +35,15 @@ def excercise_create(request):
         excercise.save()
         return redirect('excercise_list')
     else:
-        return render(request, 'excercises/new.html', {'form': form})
+        return render(request, 'excercise/new.html', {'form': form})
 
-    # return render(request, 'excercises/new.html', {'form': form})
+    # return render(request, 'excercise/new.html', {'form': form})
 
 
 def excercise_edit(request, pk):
     excercise = get_object_or_404(Excercise, pk=pk)
     form  = InputExcerciseForm(instance=excercise)
-    return render(request, 'excercises/edit.html', {'form': form, 'excercise': excercise})
+    return render(request, 'excercise/edit.html', {'form': form, 'excercise': excercise})
 
 def excercise_update(request, pk):
     oldExcercise = get_object_or_404(Excercise, pk=pk)
@@ -53,7 +53,7 @@ def excercise_update(request, pk):
         newExcercise.save()
         return redirect('excercise_list')
     else:
-        return render(request, 'excercises/edit.html', {'form': form, 'excercise': oldExcercise})
+        return render(request, 'excercise/edit.html', {'form': form, 'excercise': oldExcercise})
 
 
 def excercise_delete(request, pk):
@@ -68,7 +68,7 @@ class ExcerciseView(APIView):
     """
     def get(self, request, pk, format=None):
         """
-        Return a list of all excercises.
+        Return a list of all excercise.
         """
         print(pk)
         excercises = Excercise.objects.get(pk=pk)
